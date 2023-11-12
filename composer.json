@@ -78,7 +78,22 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "symfony serve"
+        ],
+        "test:cs": [
+            "php vendor/bin/php-cs-fixer fix --dry-run"
+        ],
+        "fix:cs": [
+            "php vendor/bin/php-cs-fixer fix"
         ]
+    },
+    "scripts-descriptions": {
+        "start": "Démarre le serveur local.",
+        "test:cs": "Vérifie la conformité du code aux standards de Symfony.",
+        "fix:cs": "Corrige le code selon les standards de Symfony."
     },
     "conflict": {
         "symfony/symfony": "*"

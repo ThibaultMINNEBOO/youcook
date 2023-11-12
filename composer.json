@@ -88,12 +88,25 @@
         ],
         "fix:cs": [
             "php vendor/bin/php-cs-fixer fix"
+        ],
+        "test:codeception": [
+            "vendor/bin/codecept clean",
+            "php bin/console doctrine:database:drop --force --quiet --env=test",
+            "php bin/console doctrine:database:create --quiet --env=test",
+            "php bin/console doctrine:schema:create --quiet --env=test",
+            "php vendor/bin/codecept run"
+        ],
+        "test": [
+            "@fix:cs",
+            "@test:codeception"
         ]
     },
     "scripts-descriptions": {
         "start": "Démarre le serveur local.",
         "test:cs": "Vérifie la conformité du code aux standards de Symfony.",
-        "fix:cs": "Corrige le code selon les standards de Symfony."
+        "fix:cs": "Corrige le code selon les standards de Symfony.",
+        "test:codeception": "Démarre les tests de l'application.",
+        "test": "Démarre les tests de l'application en refactorisant le code."
     },
     "conflict": {
         "symfony/symfony": "*"

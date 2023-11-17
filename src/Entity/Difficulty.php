@@ -6,5 +6,7 @@ namespace App\Entity;
 
 class Difficulty
 {
-
+    public const EASY = 'easy';
+    public const MEDIUM = 'medium';
+    public const HARD = 'hard';
 }

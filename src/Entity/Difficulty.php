@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-class Difficulty
+enum Difficulty
 {
-    public const EASY = 'easy';
-    public const MEDIUM = 'medium';
-    public const HARD = 'hard';
+    case EASY;
+    case MEDIUM;
+    case HARD;
 }

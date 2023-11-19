@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\EtapeRepository;
+use App\Repository\StepRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: EtapeRepository::class)]
-class Etape
+#[ORM\Entity(repositoryClass: StepRepository::class)]
+class Step
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

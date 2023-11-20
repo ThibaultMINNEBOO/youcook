@@ -34,9 +34,11 @@ final class UserFactory extends ModelFactory
      *
      * @todo inject services if required
      */
+    private \Transliterator $transliterator;
     public function __construct()
     {
         parent::__construct();
+        $this->transliterator = \Transliterator::create('Any-Lower; Latin-ASCII');
     }
 
     /**
@@ -44,6 +46,8 @@ final class UserFactory extends ModelFactory
      *
      * @todo add your default values here
      */
+
+
     protected function getDefaults(): array
     {
         return [

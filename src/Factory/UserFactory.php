@@ -47,6 +47,11 @@ final class UserFactory extends ModelFactory
      * @todo add your default values here
      */
 
+    protected function normalizeName(string $name): string
+    {
+        return preg_replace('/[^a-z]/', '-',
+            $this->transliterator->transliterate(mb_strtolower($name)));
+    }
 
     protected function getDefaults(): array
     {

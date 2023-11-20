@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Factory\StoreFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -9,9 +10,6 @@ class StoreFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
-
-        $manager->flush();
+        StoreFactory::createMany(10);
     }
 }

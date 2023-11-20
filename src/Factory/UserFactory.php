@@ -35,6 +35,7 @@ final class UserFactory extends ModelFactory
      * @todo inject services if required
      */
     private \Transliterator $transliterator;
+
     public function __construct()
     {
         parent::__construct();
@@ -46,7 +47,6 @@ final class UserFactory extends ModelFactory
      *
      * @todo add your default values here
      */
-
     protected function normalizeName(string $name): string
     {
         return preg_replace('/[^a-z]/', '-',
@@ -55,12 +55,17 @@ final class UserFactory extends ModelFactory
 
     protected function getDefaults(): array
     {
+        $lastname = self::faker()->lastName();
+        $firstname = self::faker()->firstName();
+        $email = $this->normalizeName($firstname).
+            '.'.$this->normalizeName($lastname).'@'
+            .self::faker()->domainName();
+
         return [
-            'email' => self::faker()->text(120),
-            'firstname' => self::faker()->text(30),
-            'lastname' => self::faker()->text(40),
-            'password' => self::faker()->text(30),
-        ];
+            'email' => $email,
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            ];
     }
 
     /**

@@ -14,36 +14,36 @@ class Ingredient
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    private string $ingredientName;
+    private string $name;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $ingredientPicture = null;
+    private ?string $picture = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIngredientName(): string
+    public function getName(): string
     {
-        return $this->ingredientName;
+        return $this->name;
     }
 
-    public function setIngredientName(string $ingredientName): static
+    public function setName(string $name): static
     {
-        $this->ingredientName = $ingredientName;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getIngredientPicture(): ?string
+    public function getPicture(): ?string
     {
-        return $this->ingredientPicture;
+        return $this->picture;
     }
 
-    public function setIngredientPicture(?string $ingredientPicture): static
+    public function setPicture(?string $picture): static
     {
-        $this->ingredientPicture = $ingredientPicture;
+        $this->picture = $picture;
 
         return $this;
     }

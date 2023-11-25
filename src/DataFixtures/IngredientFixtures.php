@@ -13,7 +13,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         IngredientFactory::createMany(20, [
-            'category' => IngredientCategoryFactory::faker()->boolean(70) ?? IngredientCategoryFactory::random(),
+            'category' => IngredientCategoryFactory::faker()->boolean(70) ? IngredientCategoryFactory::random() : null,
         ]);
     }
 

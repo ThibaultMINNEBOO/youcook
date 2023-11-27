@@ -93,5 +93,4 @@ class Recipe
 
         return $this;
     }
-
 }

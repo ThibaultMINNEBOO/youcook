@@ -29,6 +29,9 @@ class Recipe
     #[ORM\Column]
     private ?int $nbPeople = null;
 
+    #[ORM\ManyToOne(inversedBy: 'recipe')]
+    private ?Mark $mark = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Recipe
     public function setNbPeople(int $nbPeople): static
     {
         $this->nbPeople = $nbPeople;
+
+        return $this;
+    }
+
+    public function getMark(): ?Mark
+    {
+        return $this->mark;
+    }
+
+    public function setMark(?Mark $mark): static
+    {
+        $this->mark = $mark;
 
         return $this;
     }

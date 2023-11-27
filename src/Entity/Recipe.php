@@ -20,17 +20,19 @@ class Recipe
     #[ORM\Column(length: 15)]
     private ?string $difficulty = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $time = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column]
     private ?int $nbPeople = null;
 
+
     #[ORM\ManyToOne(inversedBy: 'recipe')]
     private ?Mark $mark = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $time = null;
+
 
     public function getId(): ?int
     {
@@ -61,18 +63,6 @@ class Recipe
         return $this;
     }
 
-    public function getTime(): ?\DateTimeInterface
-    {
-        return $this->time;
-    }
-
-    public function setTime(\DateTimeInterface $time): static
-    {
-        $this->time = $time;
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -97,6 +87,7 @@ class Recipe
         return $this;
     }
 
+
     public function getMark(): ?Mark
     {
         return $this->mark;
@@ -105,6 +96,16 @@ class Recipe
     public function setMark(?Mark $mark): static
     {
         $this->mark = $mark;
+
+    public function getTime(): ?\DateTimeInterface
+    {
+        return $this->time;
+    }
+
+    public function setTime(?\DateTimeInterface $time): self
+    {
+        $this->time = $time;
+
 
         return $this;
     }

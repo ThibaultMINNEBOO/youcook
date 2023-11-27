@@ -50,7 +50,7 @@ final class RecipeFactory extends ModelFactory
             'difficulty' => self::faker()->text(15),
             'name' => self::faker()->text(100),
             'nbPeople' => self::faker()->randomNumber(),
-            'time' => null, // TODO add TIME type manually
+            'time' => self::faker()->dateTime(),
         ];
     }
 

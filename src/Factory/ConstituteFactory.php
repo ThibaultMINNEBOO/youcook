@@ -11,21 +11,21 @@ use Zenstruck\Foundry\RepositoryProxy;
 /**
  * @extends ModelFactory<ConstituteFixtures>
  *
- * @method        ConstituteFixtures|Proxy                     create(array|callable $attributes = [])
- * @method static ConstituteFixtures|Proxy                     createOne(array $attributes = [])
- * @method static ConstituteFixtures|Proxy                     find(object|array|mixed $criteria)
- * @method static ConstituteFixtures|Proxy                     findOrCreate(array $attributes)
- * @method static ConstituteFixtures|Proxy                     first(string $sortedField = 'id')
- * @method static ConstituteFixtures|Proxy                     last(string $sortedField = 'id')
- * @method static ConstituteFixtures|Proxy                     random(array $attributes = [])
- * @method static ConstituteFixtures|Proxy                     randomOrCreate(array $attributes = [])
+ * @method        ConstituteFixtures|Proxy             create(array|callable $attributes = [])
+ * @method static ConstituteFixtures|Proxy             createOne(array $attributes = [])
+ * @method static ConstituteFixtures|Proxy             find(object|array|mixed $criteria)
+ * @method static ConstituteFixtures|Proxy             findOrCreate(array $attributes)
+ * @method static ConstituteFixtures|Proxy             first(string $sortedField = 'id')
+ * @method static ConstituteFixtures|Proxy             last(string $sortedField = 'id')
+ * @method static ConstituteFixtures|Proxy             random(array $attributes = [])
+ * @method static ConstituteFixtures|Proxy             randomOrCreate(array $attributes = [])
  * @method static ConstituteRepository|RepositoryProxy repository()
- * @method static ConstituteFixtures[]|Proxy[]                 all()
- * @method static ConstituteFixtures[]|Proxy[]                 createMany(int $number, array|callable $attributes = [])
- * @method static ConstituteFixtures[]|Proxy[]                 createSequence(iterable|callable $sequence)
- * @method static ConstituteFixtures[]|Proxy[]                 findBy(array $attributes)
- * @method static ConstituteFixtures[]|Proxy[]                 randomRange(int $min, int $max, array $attributes = [])
- * @method static ConstituteFixtures[]|Proxy[]                 randomSet(int $number, array $attributes = [])
+ * @method static ConstituteFixtures[]|Proxy[]         all()
+ * @method static ConstituteFixtures[]|Proxy[]         createMany(int $number, array|callable $attributes = [])
+ * @method static ConstituteFixtures[]|Proxy[]         createSequence(iterable|callable $sequence)
+ * @method static ConstituteFixtures[]|Proxy[]         findBy(array $attributes)
+ * @method static ConstituteFixtures[]|Proxy[]         randomRange(int $min, int $max, array $attributes = [])
+ * @method static ConstituteFixtures[]|Proxy[]         randomSet(int $number, array $attributes = [])
  */
 final class ConstituteFactory extends ModelFactory
 {

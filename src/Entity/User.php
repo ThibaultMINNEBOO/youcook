@@ -93,6 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->roles = $roles;
 
+
         return $this;
     }
 

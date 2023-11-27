@@ -45,6 +45,7 @@ class Allergen
     {
         $this->user = $user;
 
+
         return $this;
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -39,6 +41,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
+
+    #[ORM\OneToMany(mappedBy: 'userRecipe', targetEntity: Recipe::class)]
+    private Collection $userRecipes;
+
+    #[ORM\OneToMany(mappedBy: 'favoriteRecipe', targetEntity: Recipe::class)]
+    private Collection $favoritesRecipes;
+
+    public function __construct()
+    {
+        $this->userRecipes = new ArrayCollection();
+        $this->favoritesRecipes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -154,6 +168,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPicture(?string $picture): static
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getUserRecipes(): Collection
+    {
+        return $this->userRecipes;
+    }
+
+    public function addRecipe(Recipe $recipe): static
+    {
+        if (!$this->userRecipes->contains($recipe)) {
+            $this->userRecipes->add($recipe);
+            $recipe->setUserRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): static
+    {
+        if ($this->userRecipes->removeElement($recipe)) {
+            // set the owning side to null (unless already changed)
+            if ($recipe->getUserRecipe() === $this) {
+                $recipe->setUserRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getFavoritesRecipes(): Collection
+    {
+        return $this->favoritesRecipes;
+    }
+
+    public function addFavoritesRecipe(Recipe $favoritesRecipe): static
+    {
+        if (!$this->favoritesRecipes->contains($favoritesRecipe)) {
+            $this->favoritesRecipes->add($favoritesRecipe);
+            $favoritesRecipe->setFavoriteRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoritesRecipe(Recipe $favoritesRecipe): static
+    {
+        if ($this->favoritesRecipes->removeElement($favoritesRecipe)) {
+            // set the owning side to null (unless already changed)
+            if ($favoritesRecipe->getFavoriteRecipe() === $this) {
+                $favoritesRecipe->setFavoriteRecipe(null);
+            }
+        }
 
         return $this;
     }

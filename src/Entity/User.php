@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -42,6 +44,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Mark $mark = null;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergen::class)]
+    private Collection $allergens;
+
+    public function __construct()
+    {
+        $this->allergens = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -169,6 +178,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setMark(?Mark $mark): static
     {
         $this->mark = $mark;
+    /**
+     * @return Collection<int, Allergen>
+     */
+    public function getAllergens(): Collection
+    {
+        return $this->allergens;
+    }
+
+    public function addAllergen(Allergen $allergen): static
+    {
+        if (!$this->allergens->contains($allergen)) {
+            $this->allergens->add($allergen);
+            $allergen->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAllergen(Allergen $allergen): static
+    {
+        if ($this->allergens->removeElement($allergen)) {
+            // set the owning side to null (unless already changed)
+            if ($allergen->getUser() === $this) {
+                $allergen->setUser(null);
+            }
+        }
 
         return $this;
     }

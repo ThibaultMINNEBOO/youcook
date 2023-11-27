@@ -19,6 +19,9 @@ class Ingredient
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ingredients')]
+    private ?Allergen $allergen = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class Ingredient
     public function setPicture(?string $picture): static
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getAllergen(): ?Allergen
+    {
+        return $this->allergen;
+    }
+
+    public function setAllergen(?Allergen $allergen): static
+    {
+        $this->allergen = $allergen;
 
         return $this;
     }

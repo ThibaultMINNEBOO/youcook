@@ -53,6 +53,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->userRecipes = new ArrayCollection();
         $this->favoritesRecipes = new ArrayCollection();
     }
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergen::class)]
+    private Collection $allergens;
+
+    public function __construct()
+    {
+        $this->allergens = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -185,6 +192,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->userRecipes->contains($recipe)) {
             $this->userRecipes->add($recipe);
             $recipe->setUserRecipe($this);
+     * @return Collection<int, Allergen>
+     */
+    public function getAllergens(): Collection
+    {
+        return $this->allergens;
+    }
+
+    public function addAllergen(Allergen $allergen): static
+    {
+        if (!$this->allergens->contains($allergen)) {
+            $this->allergens->add($allergen);
+            $allergen->setUser($this);
         }
 
         return $this;
@@ -226,6 +245,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($favoritesRecipe->getFavoriteRecipe() === $this) {
                 $favoritesRecipe->setFavoriteRecipe(null);
+    public function removeAllergen(Allergen $allergen): static
+    {
+        if ($this->allergens->removeElement($allergen)) {
+            // set the owning side to null (unless already changed)
+            if ($allergen->getUser() === $this) {
+                $allergen->setUser(null);
             }
         }
 

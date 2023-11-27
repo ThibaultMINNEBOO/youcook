@@ -18,6 +18,8 @@ class Allergen
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
+    #[ORM\ManyToOne(inversedBy: 'allergens')]
+    private ?User $user = null;
     #[ORM\OneToMany(mappedBy: 'allergen', targetEntity: Ingredient::class)]
     private Collection $ingredients;
 
@@ -39,6 +41,18 @@ class Allergen
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

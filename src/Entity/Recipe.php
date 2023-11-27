@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RecipeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,14 @@ class Recipe
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $time = null;
+
+    #[ORM\ManyToMany(targetEntity: Tool::class, inversedBy: 'recipes')]
+    private Collection $tools;
+
+    public function __construct()
+    {
+        $this->tools = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +100,30 @@ class Recipe
     public function setTime(?\DateTimeInterface $time): self
     {
         $this->time = $time;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tool>
+     */
+    public function getTools(): Collection
+    {
+        return $this->tools;
+    }
+
+    public function addTool(Tool $tool): static
+    {
+        if (!$this->tools->contains($tool)) {
+            $this->tools->add($tool);
+        }
+
+        return $this;
+    }
+
+    public function removeTool(Tool $tool): static
+    {
+        $this->tools->removeElement($tool);
 
         return $this;
     }

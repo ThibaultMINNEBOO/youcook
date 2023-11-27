@@ -34,6 +34,12 @@ class Recipe
     #[ORM\ManyToMany(targetEntity: Tool::class, inversedBy: 'recipes')]
     private Collection $tools;
 
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    private ?User $userRecipe = null;
+
+    #[ORM\ManyToOne(inversedBy: 'favoritesRecipes')]
+    private ?User $favoriteRecipe = null;
+
     public function __construct()
     {
         $this->tools = new ArrayCollection();
@@ -124,6 +130,30 @@ class Recipe
     public function removeTool(Tool $tool): static
     {
         $this->tools->removeElement($tool);
+
+        return $this;
+    }
+
+    public function getUserRecipe(): ?User
+    {
+        return $this->userRecipe;
+    }
+
+    public function setUserRecipe(?User $userRecipe): static
+    {
+        $this->userRecipe = $userRecipe;
+
+        return $this;
+    }
+
+    public function getFavoriteRecipe(): ?User
+    {
+        return $this->favoriteRecipe;
+    }
+
+    public function setFavoriteRecipe(?User $favoriteRecipe): static
+    {
+        $this->favoriteRecipe = $favoriteRecipe;
 
         return $this;
     }

@@ -40,6 +40,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Mark $mark = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +157,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPicture(?string $picture): static
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getMark(): ?Mark
+    {
+        return $this->mark;
+    }
+
+    public function setMark(?Mark $mark): static
+    {
+        $this->mark = $mark;
 
         return $this;
     }

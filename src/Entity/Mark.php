@@ -25,13 +25,10 @@ class Mark
     public function __construct()
     {
         $this->users = new ArrayCollection();
+    }
+
     #[ORM\OneToMany(mappedBy: 'mark', targetEntity: Recipe::class)]
     private Collection $recipe;
-
-    public function __construct()
-    {
-        $this->recipe = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -51,7 +48,6 @@ class Mark
     }
 
     /**
-<<<<<<< src/Entity/Mark.php
      * @return Collection<int, User>
      */
     public function getUsers(): Collection
@@ -64,6 +60,12 @@ class Mark
         if (!$this->users->contains($user)) {
             $this->users->add($user);
             $user->setMark($this);
+        }
+
+        return $this;
+    }
+
+    /*
      * @return Collection<int, Recipe>
      */
     public function getRecipe(): Collection
@@ -87,6 +89,12 @@ class Mark
             // set the owning side to null (unless already changed)
             if ($user->getMark() === $this) {
                 $user->setMark(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function removeRecipe(Recipe $recipe): static
     {
         if ($this->recipe->removeElement($recipe)) {

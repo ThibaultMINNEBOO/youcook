@@ -22,6 +22,11 @@ class Mark
     #[ORM\OneToMany(mappedBy: 'mark', targetEntity: User::class)]
     private Collection $users;
 
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
     #[ORM\OneToMany(mappedBy: 'mark', targetEntity: Recipe::class)]
     private Collection $recipe;
 
@@ -66,6 +71,9 @@ class Mark
         return $this;
     }
 
+    /*
+     * @return Collection<int, Recipe>
+     */
     public function getRecipe(): Collection
     {
         return $this->recipe;

@@ -60,6 +60,8 @@ class Ingredient
     public function setCategory(?IngredientCategory $category): static
     {
         $this->category = $category;
+    }
+
     public function getAllergen(): ?Allergen
     {
         return $this->allergen;

@@ -42,6 +42,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Mark $mark = null;
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergen::class)]
     private Collection $allergens;
 
@@ -168,6 +170,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getMark(): ?Mark
+    {
+        return $this->mark;
+    }
+
+    public function setMark(?Mark $mark): static
+    {
+        $this->mark = $mark;
     /**
      * @return Collection<int, Allergen>
      */

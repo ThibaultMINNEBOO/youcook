@@ -28,6 +28,10 @@ class Recipe
     #[ORM\Column]
     private ?int $nbPeople = null;
 
+
+    #[ORM\ManyToOne(inversedBy: 'recipe')]
+    private ?Mark $mark = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $time = null;
 
@@ -92,6 +96,16 @@ class Recipe
         return $this;
     }
 
+
+    public function getMark(): ?Mark
+    {
+        return $this->mark;
+    }
+
+    public function setMark(?Mark $mark): static
+    {
+        $this->mark = $mark;
+
     public function getTime(): ?\DateTimeInterface
     {
         return $this->time;
@@ -100,6 +114,7 @@ class Recipe
     public function setTime(?\DateTimeInterface $time): self
     {
         $this->time = $time;
+
 
         return $this;
     }

@@ -2,9 +2,34 @@
 
 namespace App\Entity;
 
-enum RecipesCategory
+use App\Repository\RecipesCategoryRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: RecipesCategoryRepository::class)]
+class RecipesCategory
 {
-    case STARTER; // Entrée
-    case PLATE; // Plat
-    case DESSERT; // Dessert
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $name = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 }

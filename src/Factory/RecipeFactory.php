@@ -51,8 +51,6 @@ final class RecipeFactory extends ModelFactory
             'name' => self::faker()->text(100),
             'nbPeople' => self::faker()->randomNumber(),
             'time' => self::faker()->dateTime(),
-            'userRecipe' => UserFactory::random(),
-            'favoriteRecipe' => UserFactory::random(),
         ];
     }
 

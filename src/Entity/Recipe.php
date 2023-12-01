@@ -28,7 +28,6 @@ class Recipe
     #[ORM\Column]
     private ?int $nbPeople = null;
 
-
     #[ORM\ManyToOne(inversedBy: 'recipe')]
     private ?Mark $mark = null;
 
@@ -37,12 +36,6 @@ class Recipe
 
     #[ORM\ManyToMany(targetEntity: Tool::class, inversedBy: 'recipes')]
     private Collection $tools;
-
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    private ?User $userRecipe = null;
-
-    #[ORM\ManyToOne(inversedBy: 'favoritesRecipes')]
-    private ?User $favoriteRecipe = null;
 
     public function __construct()
     {
@@ -102,7 +95,6 @@ class Recipe
         return $this;
     }
 
-
     public function getMark(): ?Mark
     {
         return $this->mark;
@@ -112,6 +104,9 @@ class Recipe
     {
         $this->mark = $mark;
 
+        return $this;
+    }
+
     public function getTime(): ?\DateTimeInterface
     {
         return $this->time;
@@ -120,7 +115,6 @@ class Recipe
     public function setTime(?\DateTimeInterface $time): self
     {
         $this->time = $time;
-
 
         return $this;
     }

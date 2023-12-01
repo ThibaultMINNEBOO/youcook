@@ -191,6 +191,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setMark(?Mark $mark): static
     {
         $this->mark = $mark;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Recipe>
      */

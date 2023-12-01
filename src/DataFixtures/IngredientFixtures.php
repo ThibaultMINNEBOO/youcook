@@ -12,6 +12,8 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
+        IngredientFactory::createOne(['name' => 'salade']);
+        IngredientFactory::createOne(['name' => 'sel']);
         IngredientFactory::createMany(20, function () {
             return [
                 'category' => IngredientCategoryFactory::faker()->boolean(70) ? IngredientCategoryFactory::random() : null,

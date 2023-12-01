@@ -42,8 +42,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
+    #[ORM\OneToMany(mappedBy: 'userRecipe', targetEntity: Recipe::class)]
+    private Collection $userRecipes;
+
+    #[ORM\OneToMany(mappedBy: 'favoriteRecipe', targetEntity: Recipe::class)]
+    private Collection $favoritesRecipes;
+
+    public function __construct()
+    {
+        $this->userRecipes = new ArrayCollection();
+        $this->favoritesRecipes = new ArrayCollection();
+    }
+
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Mark $mark = null;
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergen::class)]
     private Collection $allergens;
 
@@ -183,6 +196,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @return Collection<int, Recipe>
+     */
+    public function getUserRecipes(): Collection
+    {
+        return $this->userRecipes;
+    }
+
+    public function addRecipe(Recipe $recipe): static
+    {
+        if (!$this->userRecipes->contains($recipe)) {
+            $this->userRecipes->add($recipe);
+            $recipe->setUserRecipe($this);
      * @return Collection<int, Allergen>
      */
     public function getAllergens(): Collection
@@ -200,6 +225,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function removeRecipe(Recipe $recipe): static
+    {
+        if ($this->userRecipes->removeElement($recipe)) {
+            // set the owning side to null (unless already changed)
+            if ($recipe->getUserRecipe() === $this) {
+                $recipe->setUserRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getFavoritesRecipes(): Collection
+    {
+        return $this->favoritesRecipes;
+    }
+
+    public function addFavoritesRecipe(Recipe $favoritesRecipe): static
+    {
+        if (!$this->favoritesRecipes->contains($favoritesRecipe)) {
+            $this->favoritesRecipes->add($favoritesRecipe);
+            $favoritesRecipe->setFavoriteRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoritesRecipe(Recipe $favoritesRecipe): static
+    {
+        if ($this->favoritesRecipes->removeElement($favoritesRecipe)) {
+            // set the owning side to null (unless already changed)
+            if ($favoritesRecipe->getFavoriteRecipe() === $this) {
+                $favoritesRecipe->setFavoriteRecipe(null);
     public function removeAllergen(Allergen $allergen): static
     {
         if ($this->allergens->removeElement($allergen)) {

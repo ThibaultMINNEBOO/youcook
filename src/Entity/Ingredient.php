@@ -63,6 +63,7 @@ class Ingredient
 
         return $this;
     }
+
     public function getAllergen(): ?Allergen
     {
         return $this->allergen;

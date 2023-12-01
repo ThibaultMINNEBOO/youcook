@@ -142,28 +142,4 @@ class Recipe
 
         return $this;
     }
-
-    public function getUserRecipe(): ?User
-    {
-        return $this->userRecipe;
-    }
-
-    public function setUserRecipe(?User $userRecipe): static
-    {
-        $this->userRecipe = $userRecipe;
-
-        return $this;
-    }
-
-    public function getFavoriteRecipe(): ?User
-    {
-        return $this->favoriteRecipe;
-    }
-
-    public function setFavoriteRecipe(?User $favoriteRecipe): static
-    {
-        $this->favoriteRecipe = $favoriteRecipe;
-
-        return $this;
-    }
 }

@@ -42,8 +42,7 @@ final class UserFactory extends ModelFactory
     {
         parent::__construct();
 
-        $this->transliterator = \Transliterator::create('Any-Latin; Latin-ASCII');
-        $this->passwordHasher = $passwordHasher;
+        $this->transliterator = \Transliterator::createFromRules();
     }
 
     /**

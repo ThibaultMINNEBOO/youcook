@@ -56,7 +56,7 @@ final class UserFactory extends ModelFactory
         $firstname = self::faker()->firstName();
         $lastname = self::faker()->lastName();
         $domain = self::faker()->domainName();
-        $email = "{$this->transliterator->transliterate($firstname)}.{$this->transliterator->transliterate($lastname)}@{$domain}";
+        $email = "{$this->normalizeName($firstname)}.{$this->normalizeName($lastname)}@{$domain}";
 
         return [
             'email' => $email,

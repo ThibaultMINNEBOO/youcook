@@ -79,6 +79,13 @@ final class UserFactory extends ModelFactory
         ;
     }
 
+    protected function normalizeName(string $name): string
+    {
+        $name = $this->transliterator->transliterate($name);
+
+        return preg_replace('/\W+/', '-', $name);
+    }
+
     protected static function getClass(): string
     {
         return User::class;

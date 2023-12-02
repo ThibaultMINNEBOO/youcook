@@ -29,6 +29,8 @@ use Zenstruck\Foundry\RepositoryProxy;
  */
 final class UserFactory extends ModelFactory
 {
+    private \Transliterator $transliterator;
+
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
      *
@@ -37,6 +39,8 @@ final class UserFactory extends ModelFactory
     public function __construct()
     {
         parent::__construct();
+
+        $this->transliterator = \Transliterator::createFromRules();
     }
 
     /**
@@ -46,11 +50,16 @@ final class UserFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
+        $firstname = self::faker()->firstName();
+        $lastname = self::faker()->lastName();
+        $domain = self::faker()->domainName();
+        $email = "{$this->transliterator->transliterate($firstname)}.{$this->transliterator->transliterate($lastname)}@{$domain}";
+
         return [
-            'email' => self::faker()->text(180),
-            'firstname' => self::faker()->text(30),
-            'lastname' => self::faker()->text(40),
-            'password' => self::faker()->text(),
+            'email' => $email,
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'password' => 'test',
             'roles' => [],
         ];
     }

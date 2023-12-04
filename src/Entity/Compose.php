@@ -16,6 +16,14 @@ class Compose
     #[ORM\Column]
     private ?int $stepNumber = null;
 
+    #[ORM\ManyToOne(inversedBy: 'composes')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Step $step = null;
+
+    #[ORM\ManyToOne(inversedBy: 'composes')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Recipe $recipe = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -31,5 +39,29 @@ class Compose
         $this->stepNumber = $stepNumber;
 
         return $this;
+    }
+
+    public function getStep(): ?Step
+    {
+        return $this->step;
+    }
+
+    public function setStep(?Step $step): static
+    {
+        $this->step = $step;
+
+        return $this;
+    }
+
+    public function getRecipe(): ?Recipe
+    {
+        return $this->recipe;
+    }
+
+    public function setRecipe(?Recipe $recipe): Recipe
+    {
+        $this->recipe = $recipe;
+
+        return $this->recipe;
     }
 }

@@ -11,7 +11,5 @@ class StepFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         StepFactory::createMany(10);
-        // $product = new Product();
-        // $manager->persist($product);
     }
 }

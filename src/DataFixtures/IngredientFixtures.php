@@ -13,6 +13,10 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $ingredients = json_decode(file_get_contents(__DIR__.'/data/Ingredients.json'), true);
+
+        foreach ($ingredients as $ingredient) {
+            IngredientFactory::createOne(['name' => $ingredient['name'], 'category_id' => $ingredient['category_id']]);
+        }
     }
 
     public function getDependencies(): array

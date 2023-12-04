@@ -22,11 +22,6 @@ class Mark
     #[ORM\OneToMany(mappedBy: 'mark', targetEntity: User::class)]
     private Collection $users;
 
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
-
     #[ORM\OneToMany(mappedBy: 'mark', targetEntity: Recipe::class)]
     private Collection $recipe;
 
@@ -92,7 +87,6 @@ class Mark
     public function removeUser(User $user): static
     {
         if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
             if ($user->getMark() === $this) {
                 $user->setMark(null);
             }
@@ -104,7 +98,6 @@ class Mark
     public function removeRecipe(Recipe $recipe): static
     {
         if ($this->recipe->removeElement($recipe)) {
-            // set the owning side to null (unless already changed)
             if ($recipe->getMark() === $this) {
                 $recipe->setMark(null);
             }

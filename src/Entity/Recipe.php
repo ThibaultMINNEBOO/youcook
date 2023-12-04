@@ -37,12 +37,16 @@ class Recipe
     #[ORM\ManyToMany(targetEntity: Tool::class, inversedBy: 'recipes')]
     private Collection $tools;
 
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Compose::class)]
+    private Collection $composes;
+
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?RecipesCategory $recipeCategory = null;
 
     public function __construct()
     {
         $this->tools = new ArrayCollection();
+        $this->composes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -142,6 +146,36 @@ class Recipe
     public function removeTool(Tool $tool): static
     {
         $this->tools->removeElement($tool);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Compose>
+     */
+    public function getComposes(): Collection
+    {
+        return $this->composes;
+    }
+
+    public function addCompose(Compose $compose): static
+    {
+        if (!$this->composes->contains($compose)) {
+            $this->composes->add($compose);
+            $compose->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompose(Compose $compose): static
+    {
+        if ($this->composes->removeElement($compose)) {
+            // set the owning side to null (unless already changed)
+            if ($compose->getRecipe() === $this) {
+                $compose->setRecipe(null);
+            }
+        }
 
         return $this;
     }

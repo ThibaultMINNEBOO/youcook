@@ -48,6 +48,7 @@ final class ComposeFactory extends ModelFactory
     {
         return [
             'stepNumber' => self::faker()->randomNumber(),
+            'step' => StepFactory::random(),
         ];
     }
 

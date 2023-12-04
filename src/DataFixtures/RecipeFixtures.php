@@ -12,6 +12,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
+        RecipeFactory::createOne(['description' => 'description de test']);
         RecipeFactory::createMany(20, function () {
             return ['recipeCategory' => RecipesCategoryFactory::random()];
         });
@@ -21,6 +22,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             RecipeCategoryFixtures::class,
+            MarkFixtures::class,
         ];
     }
 }

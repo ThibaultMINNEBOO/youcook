@@ -1,26 +1,14 @@
 [
   {
-    "name": "Fruits et Légumes"
+    "name": "Abricot",
+    "category_id": 1
   },
   {
-    "name": "Produits céréaliers et légumineuses"
+    "name": "Pomme de terre Vitelotte",
+    "category_id": 1
   },
   {
-    "name": "Produits laitiers"
-  },
-  {
-    "name": "Viande, poisson et fruits de mer"
-  },
-  {
-    "name": "Matières grasses"
-  },
-  {
-    "name": "Produits sucrés"
-  },
-  {
-    "name": "Epices"
-  },
-  {
-    "name": "Alcool"
+    "name": "Rhum Brun",
+    "category_id": 7
   }
 ]

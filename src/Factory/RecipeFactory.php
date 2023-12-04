@@ -2,6 +2,7 @@
 
 namespace App\Factory;
 
+use App\Entity\Difficulty;
 use App\Entity\Recipe;
 use App\Repository\RecipeRepository;
 use Zenstruck\Foundry\ModelFactory;
@@ -43,14 +44,25 @@ final class RecipeFactory extends ModelFactory
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories
      *
      * @todo add your default values here
+     *
+     * @throws \Exception
      */
     protected function getDefaults(): array
     {
+        /*
+         * Difficulty::cases() renvoie toutes les valeurs de l’énumération
+         * array_rand(Array) récupère un index aléatoire du tableau passé en paramètre
+         * la combinaison des deux permet de récupérer un index aléatoire de l’énumération Difficulty
+         * dans notre cas, il faut utiliser Difficulty::cases()[array_rand(Difficulty::cases())]
+         *   pour récupérer une valeur aléatoire de Difficulty
+         * !! L’utilisation de cette méthode n’est valable que pour des données factices !!
+         */
         return [
-            'difficulty' => self::faker()->text(15),
             'name' => self::faker()->text(100),
+            'difficulty' => Difficulty::cases()[array_rand(Difficulty::cases())]->name,
             'nbPeople' => self::faker()->randomNumber(),
             'time' => self::faker()->dateTime(),
+            'mark' => MarkFactory::random(),
             'recipeCategory' => RecipesCategoryFactory::new(),
         ];
     }

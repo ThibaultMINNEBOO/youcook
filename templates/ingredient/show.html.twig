@@ -6,6 +6,11 @@
         <dt>Ingrédient : </dt>
         <dd>{{ ingredient.name }}</dd>
         <dt>Catégorie :</dt>
+        {% if ingredient.category == null %}
+        <dd>Aucune catégorie</dd>
+        {% endif %}
+        {% if ingredient.category != null %}
         <dd>{{ ingredient.category.name }}</dd>
+        {% endif %}
     </dl>
 {% endblock %}

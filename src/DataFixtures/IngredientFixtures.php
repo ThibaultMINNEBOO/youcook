@@ -12,20 +12,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        IngredientFactory::createOne(['name' => 'Salade', 'category' => IngredientCategoryFactory::faker()->boolean(70) ? IngredientCategoryFactory::random() : null,
-        ]);
-        IngredientFactory::createOne(['name' => 'Sel', 'category' => IngredientCategoryFactory::faker()->boolean(70) ? IngredientCategoryFactory::random() : null,
-        ]);
-        IngredientFactory::createOne(['name' => 'Tomate', 'category' => IngredientCategoryFactory::faker()->boolean(70) ? IngredientCategoryFactory::random() : null,
-        ]);
-        IngredientFactory::createOne(['name' => 'Pomme de terre vitelotte', 'category' => IngredientCategoryFactory::faker()->boolean(70) ? IngredientCategoryFactory::random() : null,
-        ]);
-        IngredientFactory::createOne(['name' => 'Vinaigre', 'category' => IngredientCategoryFactory::faker()->boolean(70) ? IngredientCategoryFactory::random() : null,
-]);
-        IngredientFactory::createOne(['name' => 'Abricot', 'category' => IngredientCategoryFactory::faker()->boolean(70) ? IngredientCategoryFactory::random() : null,
-        ]);
-        IngredientFactory::createOne(['name' => 'Rhum Brun', 'category' => IngredientCategoryFactory::faker()->boolean(70) ? IngredientCategoryFactory::random() : null,
-        ]);
+        $ingredients = json_decode(file_get_contents(__DIR__.'/data/Ingredients.json'), true);
     }
 
     public function getDependencies(): array

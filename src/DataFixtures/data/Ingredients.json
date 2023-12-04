@@ -1,14 +1,11 @@
 [
   {
-    "name": "Abricot",
-    "category_id": 1
+    "name": "Abricot"
   },
   {
-    "name": "Pomme de terre Vitelotte",
-    "category_id": 1
+    "name": "Pomme de terre Vitelotte"
   },
   {
-    "name": "Rhum Brun",
-    "category_id": 7
+    "name": "Rhum Brun"
   }
 ]

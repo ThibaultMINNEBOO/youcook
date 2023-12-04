@@ -6,7 +6,8 @@
     <h1>Liste des Ingredients</h1>
     <ul>
     {% for ingredient in ingredients %}
-        <li>{{ ingredient.name }}</li>
+        <li><a href="{{ path('app_ingredient_show', {id : ingredient.id}) }}">
+            {{ ingredient.name }}</li>
     {% endfor %}
     </ul>
 {% endblock %}

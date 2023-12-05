@@ -12,13 +12,11 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        IngredientFactory::createOne(['name' => 'salade']);
-        IngredientFactory::createOne(['name' => 'sel']);
-        IngredientFactory::createMany(1, function () {
-            return [
-                'category' => IngredientCategoryFactory::faker()->boolean(70) ? IngredientCategoryFactory::random() : null,
-            ];
-        });
+        $ingredients = json_decode(file_get_contents(__DIR__.'/data/Ingredients.json'), true);
+
+        foreach ($ingredients as $ingredient) {
+            IngredientFactory::createOne(['name' => $ingredient['name']]);
+        }
     }
 
     public function getDependencies(): array

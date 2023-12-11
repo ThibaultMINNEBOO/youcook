@@ -50,6 +50,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergen::class)]
     private Collection $allergens;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Store $store = null;
+
     public function __construct()
     {
         $this->allergens = new ArrayCollection();
@@ -211,6 +214,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $allergen->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStore(): ?Store
+    {
+        return $this->store;
+    }
+
+    public function setStore(?Store $store): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($store === null && $this->store !== null) {
+            $this->store->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($store !== null && $store->getUser() !== $this) {
+            $store->setUser($this);
+        }
+
+        $this->store = $store;
 
         return $this;
     }

@@ -18,6 +18,17 @@ class Store
     #[ORM\Column]
     private ?int $quantity = null;
 
+    #[ORM\OneToMany(mappedBy: 'store', targetEntity: Ingredient::class)]
+    private Collection $ingredients;
+
+    #[ORM\OneToOne(inversedBy: 'store', cascade: ['persist', 'remove'])]
+    private ?User $user = null;
+
+    public function __construct()
+    {
+        $this->ingredients = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -32,6 +43,48 @@ class Store
     public function setQuantity(int $quantity): static
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ingredient>
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
+    }
+
+    public function addIngredient(Ingredient $ingredient): static
+    {
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients->add($ingredient);
+            $ingredient->setStore($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Ingredient $ingredient): static
+    {
+        if ($this->ingredients->removeElement($ingredient)) {
+            // set the owning side to null (unless already changed)
+            if ($ingredient->getStore() === $this) {
+                $ingredient->setStore(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

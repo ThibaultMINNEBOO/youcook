@@ -23,6 +23,9 @@ class Ingredient
     private ?IngredientCategory $category = null;
     private ?Allergen $allergen = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ingredients')]
+    private ?Store $store = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -72,6 +75,18 @@ class Ingredient
     public function setAllergen(?Allergen $allergen): static
     {
         $this->allergen = $allergen;
+
+        return $this;
+    }
+
+    public function getStore(): ?Store
+    {
+        return $this->store;
+    }
+
+    public function setStore(?Store $store): static
+    {
+        $this->store = $store;
 
         return $this;
     }

@@ -48,6 +48,8 @@ final class StoreFactory extends ModelFactory
     {
         return [
             'quantity' => self::faker()->randomNumber(),
+            'user' => UserFactory::random(),
+            'ingredients' => IngredientFactory::random(),
         ];
     }
 

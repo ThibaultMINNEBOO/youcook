@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -34,9 +33,6 @@ class Recipe
     #[ORM\ManyToOne(inversedBy: 'recipe')]
     private ?Mark $mark = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $time = null;
-
     #[ORM\ManyToMany(targetEntity: Tool::class, inversedBy: 'recipes')]
     private Collection $tools;
 
@@ -45,6 +41,15 @@ class Recipe
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Step::class, orphanRemoval: true)]
     private Collection $steps;
+
+    #[ORM\Column]
+    private ?int $day = 0;
+
+    #[ORM\Column]
+    private ?int $hour = 0;
+
+    #[ORM\Column]
+    private ?int $minute = 0;
 
     #[Vich\UploadableField(mapping: 'recipe_image', fileNameProperty: 'pictureName')]
     private ?File $picture = null;
@@ -126,18 +131,6 @@ class Recipe
         return $this;
     }
 
-    public function getTime(): ?\DateTimeInterface
-    {
-        return $this->time;
-    }
-
-    public function setTime(?\DateTimeInterface $time): self
-    {
-        $this->time = $time;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Tool>
      */
@@ -201,6 +194,47 @@ class Recipe
         }
 
         return $this;
+    }
+
+    public function getDay(): ?int
+    {
+        return $this->day;
+    }
+
+    public function setDay(int $day): static
+    {
+        $this->day = $day;
+
+        return $this;
+    }
+
+    public function getHour(): ?int
+    {
+        return $this->hour;
+    }
+
+    public function setHour(int $hour): static
+    {
+        $this->hour = $hour;
+
+        return $this;
+    }
+
+    public function getMinute(): ?int
+    {
+        return $this->minute;
+    }
+
+    public function setMinute(int $minute): static
+    {
+        $this->minute = $minute;
+
+        return $this;
+    }
+
+    public function getTime(int $day, int $hour, int $minute): string
+    {
+        return "$day:$hour:$minute";
     }
 
     public function getPictureName(): ?string

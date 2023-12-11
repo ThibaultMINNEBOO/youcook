@@ -21,6 +21,9 @@ class Store
     #[ORM\OneToMany(mappedBy: 'stock', targetEntity: Ingredient::class)]
     private Collection $ingredients;
 
+    #[ORM\OneToOne(mappedBy: 'stock', cascade: ['persist', 'remove'])]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
@@ -69,6 +72,28 @@ class Store
                 $ingredient->setStock(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setStock(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getStock() !== $this) {
+            $user->setStock($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }

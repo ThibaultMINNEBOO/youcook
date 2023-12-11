@@ -4,4 +4,9 @@
 
 {% block body %}
     <h1>Stock</h1>
+    <ul>
+        {% for ingredient in store %}
+            <li>{{ ingredient }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

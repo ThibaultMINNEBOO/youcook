@@ -25,14 +25,12 @@ final class Version20231211150701 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_6BAF7870B092A811 ON ingredient (store_id)');
         $this->addSql('ALTER TABLE store ADD user_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE store ADD CONSTRAINT FK_FF575877A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_FF575877A76ED395 ON store (user_id)');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE store DROP FOREIGN KEY FK_FF575877A76ED395');
-        $this->addSql('DROP INDEX UNIQ_FF575877A76ED395 ON store');
         $this->addSql('ALTER TABLE store DROP user_id');
         $this->addSql('ALTER TABLE ingredient DROP FOREIGN KEY FK_6BAF7870B092A811');
         $this->addSql('DROP INDEX IDX_6BAF7870B092A811 ON ingredient');

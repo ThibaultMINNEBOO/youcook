@@ -10,10 +10,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StoreController extends AbstractController
 {
-    #[Route('/store', name: 'app_store')]
+    #[Route('/store/{user_id}', name: 'app_store')]
     public function index(StoreRepository $storeRepository): Response
     {
-        $store = $storeRepository->find('id');
+        $store = $storeRepository->findBy(['user_id']);
 
         return $this->render('store/index.html.twig', [
             'store' => $store,

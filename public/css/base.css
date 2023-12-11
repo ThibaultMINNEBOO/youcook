@@ -1,19 +1,30 @@
-body{
-}
-
+/* Logo navbar */
 .home_logo {
     width: 35%;
     height: 35%;
 }
 
+/* Photo de profil */
 .user_pic {
-    width: 10%; /* la largeur de votre cadre */
-    height: 10%; /* la hauteur de votre cadre */
+    width: 10%;
+    height: 10%;
     border-radius: 50%;
-    background-color: aqua;
 }
 .user_pic img {
-    width: 100%
+    width: 100%;
+    height: auto;
+}
+@media only screen and (min-width : 990px) {
+    .d-flex {
+
+    }
+    .user_pic {
+
+    }
+    .user_pic img {
+        width: 50%;
+        height: 50%;
+    }
 }
 
 

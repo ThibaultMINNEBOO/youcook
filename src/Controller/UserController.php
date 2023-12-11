@@ -16,6 +16,8 @@ class UserController extends AbstractController
     {
         $user = $userRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
 
+        // TODO: form of user profile
+
         return $this->render('user/index.html.twig');
     }
 }

@@ -10,6 +10,7 @@ class StoreFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        StoreFactory::createMany(10);
+        StoreFactory::createOne(['id' => 1, 'quantity' => 7]);
+        StoreFactory::createOne(['id' => 2, 'quantity' => 1]);
     }
 }

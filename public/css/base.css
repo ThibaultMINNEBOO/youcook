@@ -1,0 +1,20 @@
+body{
+}
+
+.home_logo {
+    width: 35%;
+    height: 35%;
+}
+
+.user_pic {
+    width: 10%; /* la largeur de votre cadre */
+    height: 10%; /* la hauteur de votre cadre */
+    border-radius: 50%;
+    background-color: aqua;
+}
+.user_pic img {
+    width: 100%
+}
+
+
+

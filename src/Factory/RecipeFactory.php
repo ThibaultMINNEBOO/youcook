@@ -60,10 +60,12 @@ final class RecipeFactory extends ModelFactory
         return [
             'name' => self::faker()->text(100),
             'difficulty' => Difficulty::cases()[array_rand(Difficulty::cases())]->name,
-            'nbPeople' => self::faker()->randomNumber(),
-            'time' => self::faker()->dateTime(),
+            'nbPeople' => self::faker()->numberBetween(1, 10),
             'mark' => MarkFactory::random(),
             'recipeCategory' => RecipesCategoryFactory::new(),
+            'day' => self::faker()->numberBetween(0, 30),
+            'hour' => self::faker()->numberBetween(0, 23),
+            'minute' => self::faker()->numberBetween(1, 59),
         ];
     }
 

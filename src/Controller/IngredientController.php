@@ -25,5 +25,4 @@ class IngredientController extends AbstractController
     {
         return $this->render('ingredient/show.html.twig', ['ingredientId' => $ingredient->getId(), 'ingredient' => $ingredient]);
     }
-
 }

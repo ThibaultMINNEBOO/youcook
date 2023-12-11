@@ -50,9 +50,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergen::class)]
     private Collection $allergens;
 
-    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?Store $stock = null;
-
     public function __construct()
     {
         $this->allergens = new ArrayCollection();
@@ -218,15 +215,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getStock(): ?Store
-    {
-        return $this->stock;
-    }
-
-    public function setStock(?Store $stock): static
-    {
-        $this->stock = $stock;
-
-        return $this;
-    }
 }

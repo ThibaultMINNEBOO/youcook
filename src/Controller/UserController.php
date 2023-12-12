@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ProfileType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,10 +18,10 @@ class UserController extends AbstractController
     {
         $user = $userRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
 
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(ProfileType::class, $user);
 
         return $this->render('user/index.html.twig', [
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 }

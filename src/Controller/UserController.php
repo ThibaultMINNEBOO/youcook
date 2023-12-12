@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\UserRepository;
+use Cassandra\Type\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,8 +17,10 @@ class UserController extends AbstractController
     {
         $user = $userRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
 
-        // TODO: form of user profile
+        $form = $this->createForm(UserType::class, $user);
 
-        return $this->render('user/index.html.twig');
+        return $this->render('user/index.html.twig', [
+            'form' => $form,
+        ]);
     }
 }

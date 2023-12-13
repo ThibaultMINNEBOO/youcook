@@ -20,6 +20,12 @@ class IndexCest
         $I->seeResponseCodeIs(200);
     }
 
+    public function testRedirectToLoginWhenNotAuthenticated(ControllerTester $I)
+    {
+        $I->amOnPage('/profile');
+        $I->seeCurrentRouteIs('app_login');
+    }
+
     public function _before(ControllerTester $I)
     {
     }

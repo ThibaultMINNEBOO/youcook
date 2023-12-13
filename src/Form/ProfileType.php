@@ -25,6 +25,7 @@ class ProfileType extends AbstractType
                 'class' => Allergen::class,
                 'multiple' => true,
                 'choice_label' => 'name',
+                'expanded' => true,
             ])
         ;
     }

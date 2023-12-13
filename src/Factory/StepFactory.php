@@ -58,7 +58,6 @@ final class StepFactory extends ModelFactory
     protected function initialize(): self
     {
         return $this
-            // ->afterInstantiate(function(Step $etape): void {})
         ;
     }
 

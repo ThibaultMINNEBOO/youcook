@@ -66,6 +66,9 @@ class Mark
         return $this;
     }
 
+    /*
+     * @return Collection<int, Recipe>
+     */
     public function getRecipe(): Collection
     {
         return $this->recipe;

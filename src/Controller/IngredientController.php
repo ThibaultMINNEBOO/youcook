@@ -23,7 +23,6 @@ class IngredientController extends AbstractController
     #[Route('/ingredient/{id}', name: 'app_ingredient_show', requirements: ['ingredientId' => '\d+'])]
     public function show(Ingredient $ingredient): Response
     {
-        return $this->render('ingredient/show.html.twig', ['ingredientId' => $ingredient->getId(), 'ingredient' => $ingredient]);
+        return $this->render('ingredient/show.html.twig', ['ingredient' => $ingredient]);
     }
-
 }

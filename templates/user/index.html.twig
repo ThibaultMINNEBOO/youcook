@@ -2,11 +2,16 @@
 
 {% block title %}{{ app.user.firstname }} | Profile{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
 {% block body %}
 
     <div class="container-lg">
-        <h1>Mon profil</h1>
         {{ form_start(form) }}
+
+        <h1 class="form__title">Mon profil</h1>
 
         {{ form_row(form.firstname, {'label': 'Prénom'}) }}
         {{ form_row(form.lastname, {'label': 'Nom'}) }}
@@ -14,7 +19,7 @@
         {{ form_row(form.biography, {'label': 'Biographie'}) }}
         {{ form_row(form.allergens, {'label': 'Allergies'}) }}
 
-        <button type="submit" class="btn btn-primary w-100">Mettre à jour mon profil</button>
+        <button type="submit" class="form__button">Mettre à jour mon profil</button>
 
         {{ form_end(form) }}
     </div>

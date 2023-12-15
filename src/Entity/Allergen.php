@@ -18,14 +18,16 @@ class Allergen
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'allergens')]
-    private ?User $user = null;
     #[ORM\OneToMany(mappedBy: 'allergen', targetEntity: Ingredient::class)]
     private Collection $ingredients;
+
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'allergens')]
+    private Collection $users;
 
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -82,6 +84,33 @@ class Allergen
             if ($ingredient->getAllergen() === $this) {
                 $ingredient->setAllergen(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addAllergen($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeAllergen($this);
         }
 
         return $this;

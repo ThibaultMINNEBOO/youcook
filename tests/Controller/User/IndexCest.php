@@ -33,12 +33,24 @@ class IndexCest
         $I->seeCurrentRouteIs('app_login');
     }
 
-    public function _before(ControllerTester $I)
+    public function testRedirectWhenFormIsSubmitted(ControllerTester $I)
     {
+        $user = UserFactory::createOne()->object();
+        $I->amLoggedInAs($user);
+
+        $I->amOnPage('/profile');
+
+        $I->submitForm('form', [
+            'profile[firstname]' => 'Thibault',
+            'profile[lastname]' => 'Minneboo',
+            'profile[email]' => 'thibault.minneboo@example.com',
+        ]);
+
+        $I->seeResponseCodeIs(200);
+        $I->seeCurrentRouteIs('app_login');
     }
 
-    // tests
-    public function tryToTest(ControllerTester $I)
+    public function _before(ControllerTester $I)
     {
     }
 }

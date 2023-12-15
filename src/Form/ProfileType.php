@@ -15,11 +15,27 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('firstname')
-            ->add('lastname')
+            ->add('email', null, [
+                'attr' => [
+                    'class' => 'form-input',
+                ],
+            ])
+            ->add('firstname', null, [
+                'attr' => [
+                    'class' => 'form-input',
+                ],
+            ])
+            ->add('lastname', null, [
+                'attr' => [
+                    'class' => 'form-input',
+                ],
+            ])
             ->add('biography', TextareaType::class, [
                 'required' => false,
+                'attr' => [
+                    'class' => 'form-input',
+                    'rows' => 10,
+                ],
             ])
             ->add('allergens', EntityType::class, [
                 'class' => Allergen::class,

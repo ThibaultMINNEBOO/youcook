@@ -17,12 +17,12 @@ class IndexCest
         $I->seeInTitle("{$user->getFirstname()} | Profile");
         $I->seeElement('form');
 
-        $I->see('Prénom', 'form > .mb-3 > label[for="profile_firstname"]');
-        $I->see('Nom', 'form > .mb-3 > label[for="profile_lastname"]');
-        $I->see('Email', 'form > .mb-3 > label[for="profile_email"]');
-        $I->seeElement("form > .mb-3 > input#profile_firstname[value='{$user->getFirstname()}']");
-        $I->seeElement("form > .mb-3 > input#profile_lastname[value='{$user->getLastname()}']");
-        $I->seeElement("form > .mb-3 > input#profile_email[value='{$user->getEmail()}']");
+        $I->see('Prénom', 'form label[for="profile_firstname"]');
+        $I->see('Nom', 'form label[for="profile_lastname"]');
+        $I->see('Email', 'form label[for="profile_email"]');
+        $I->seeElement("form input#profile_firstname[value='{$user->getFirstname()}']");
+        $I->seeElement("form input#profile_lastname[value='{$user->getLastname()}']");
+        $I->seeElement("form input#profile_email[value='{$user->getEmail()}']");
 
         $I->seeResponseCodeIs(200);
     }

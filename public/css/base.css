@@ -1,31 +1,11 @@
-/* Logo navbar */
-.home_logo {
-    width: 35%;
-    height: 35%;
+.cat-menu {
+    border-radius: 50px 0 0 50px;
+    border-color: black;
 }
-
-/* Photo de profil */
-.user_pic {
-    width: 10%;
-    height: 10%;
-    border-radius: 50%;
+.form-control {
+    border-radius: 0 0 0 0;
+    border-color: black;
 }
-.user_pic img {
-    width: 100%;
-    height: auto;
+.btn-outline-success {
+    border-radius: 0 50px 50px 0;
 }
-@media only screen and (min-width : 990px) {
-    .d-flex {
-
-    }
-    .user_pic {
-
-    }
-    .user_pic img {
-        width: 50%;
-        height: 50%;
-    }
-}
-
-
-

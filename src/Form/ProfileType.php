@@ -34,7 +34,7 @@ class ProfileType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'class' => 'form-input',
-                    'rows' => 10,
+                    'rows' => 5,
                 ],
             ])
             ->add('allergens', EntityType::class, [
@@ -42,6 +42,9 @@ class ProfileType extends AbstractType
                 'multiple' => true,
                 'choice_label' => 'name',
                 'expanded' => true,
+                'attr' => [
+                    'class' => 'form-input',
+                ],
             ])
         ;
     }

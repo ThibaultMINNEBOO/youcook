@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Recipe;
+use App\Entity\RecipesCategory;
+use App\Entity\Tool;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,9 +20,14 @@ class RecipeType extends AbstractType
             ->add('description')
             ->add('nbPeople')
             ->add('time')
-            ->add('mark')
-            ->add('tools')
-            ->add('recipeCategory')
+            ->add('tools', EntityType::class, [
+                'class' => Tool::class,
+                'choice_label' => 'name',
+            ])
+            ->add('recipeCategory', EntityType::class, [
+                'class' => RecipesCategory::class,
+                'choice_label' => 'name',
+            ])
         ;
     }
 

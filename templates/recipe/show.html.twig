@@ -15,6 +15,32 @@
                 </ol>
             </div>
         </div>
+        <div>
+            <div>
+                <h4 style="text-align: left">Informations sur la recette :</h4>
+                <div class="d-flex col-md-4">
+                    <p class="card" style="margin: 10px">{{ recipe.day == 0 ? recipe.hour == 0 ? "#{recipe.minute} minute(s)" : "#{recipe.hour} heure(s) et  #{recipe.minute}" : "#{recipe.day} jour(s), #{recipe.hour} heure(s) et  #{recipe.minute}" }}</p>
+                    <p class="card" style="margin: 10px">Note : {{ recipe.mark.mark ?? '0.0' }}</p>
+                </div>
+            </div>
+            <div class="descriptionRecipe">
+                <h4 style="text-align: left">Description :</h4>
+                <p style="text-align: left; text-indent: 40px">{{ recipe.description ?? 'Aucune description' }}</p>
+            </div>
+            <div class="Ustensiles">
+                <h4 style="text-align: left">Ustensiles utilisés :</h4>
+                <div class="container d-flex flex-wrap">
+                    {% for tool in recipe.tools %}
+                        <div class="col-md-4">
+                            <div class="card d-flex flex-row justify-content-left" style="margin: 10px; align-items: flex-end">
+                                <img class="card-img-top" src="{{ asset('img/toolIcon.png') }}" alt="{{ recipe.name }}" style="height: 40px; width: 40px; margin: 5px">
+                                <p>{{ tool.name }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 

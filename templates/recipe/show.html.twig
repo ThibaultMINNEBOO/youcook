@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 style="text-align: center;">{{ recipe.name }}</h1>
+    <div style="text-align: center; margin: 30px;" class="d-flex flex-row">
+        <div>
+            <img src="{{ asset('img/recipe_test.jpg') }}" alt="image de la recette" width="700px" height="500px" style="margin-bottom: 5px">
+            <div style="margin: 10px">
+                <h4>Étapes à suivre :</h4>
+                <ol style="text-align: left">
+                    {% for step in recipe.steps %}
+                        <li>{{ step.name }}</li>
+                        <p style="text-indent: 40px; font-weight: lighter">{{ step.description }}</p>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}{{ recipe.name }}{% endblock %}
+

@@ -25,6 +25,12 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    #[Route('/recipe/{id}', name: 'app_recipe_show', requirements: ['id' => '\d+'])]
+    public function show(Recipe $recipe): Response
+    {
+        return $this->render('recipe/show.html.twig', ['recipe' => $recipe]);
+    }
+
     #[Route('/recipe/create', name: 'app_recipe_create', requirements: ['id' => '\d+'])]
     #[IsGranted('IS_AUTHENTICATED')]
     public function create(Request $request, RecipesCategoryRepository $recipesCategoryRepository, EntityManagerInterface $entityManager, UserRepository $userRepository): Response

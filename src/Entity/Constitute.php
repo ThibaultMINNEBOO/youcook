@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ConstituteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +21,18 @@ class Constitute
 
     #[ORM\Column(length: 4)]
     private ?string $measure = null;
+
+    #[ORM\OneToOne(inversedBy: 'constitute', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Recipe $recipe = null;
+
+    #[ORM\OneToMany(mappedBy: 'constitute', targetEntity: Ingredient::class)]
+    private Collection $ingredients;
+
+    public function __construct()
+    {
+        $this->ingredients = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -45,6 +59,48 @@ class Constitute
     public function setMeasure(string $measure): static
     {
         $this->measure = $measure;
+
+        return $this;
+    }
+
+    public function getRecipe(): ?Recipe
+    {
+        return $this->recipe;
+    }
+
+    public function setRecipe(Recipe $recipe): static
+    {
+        $this->recipe = $recipe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ingredient>
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
+    }
+
+    public function addIngredient(Ingredient $ingredient): static
+    {
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients->add($ingredient);
+            $ingredient->setConstitute($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Ingredient $ingredient): static
+    {
+        if ($this->ingredients->removeElement($ingredient)) {
+            // set the owning side to null (unless already changed)
+            if ($ingredient->getConstitute() === $this) {
+                $ingredient->setConstitute(null);
+            }
+        }
 
         return $this;
     }

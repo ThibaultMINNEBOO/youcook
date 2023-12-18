@@ -40,6 +40,9 @@ class Recipe
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?RecipesCategory $recipeCategory = null;
 
+    #[ORM\OneToOne(mappedBy: 'recipe', cascade: ['persist', 'remove'])]
+    private ?Constitute $constitute = null;
+
     public function __construct()
     {
         $this->tools = new ArrayCollection();
@@ -154,6 +157,23 @@ class Recipe
     public function setRecipeCategory(?RecipesCategory $recipeCategory): static
     {
         $this->recipeCategory = $recipeCategory;
+
+        return $this;
+    }
+
+    public function getConstitute(): ?Constitute
+    {
+        return $this->constitute;
+    }
+
+    public function setConstitute(Constitute $constitute): static
+    {
+        // set the owning side of the relation if necessary
+        if ($constitute->getRecipe() !== $this) {
+            $constitute->setRecipe($this);
+        }
+
+        $this->constitute = $constitute;
 
         return $this;
     }

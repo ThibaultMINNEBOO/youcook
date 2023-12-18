@@ -61,6 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->allergens = new ArrayCollection();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getPicture(): ?File
@@ -235,5 +236,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): User
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
     }
 }

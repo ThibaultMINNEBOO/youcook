@@ -15,13 +15,23 @@
 .btn-outline-success {
     border-radius: 0 50px 50px 0;
 }
-@media screen and (min-width: 990px)
+@media screen and (min-width: 991px)
 {
-    .nav-item {
+    .navbar-nav {
         display: flex;
-        justify-content: center;
-        background-color: aqua;
     }
+
+    .truc {
+        display: flex;
+        flex-grow: 1;
+    }
+
+    .form {
+        display: flex;
+        flex-grow: 1;
+        justify-content: center;
+    }
+
     .form-control {
         width: 500px;
     }

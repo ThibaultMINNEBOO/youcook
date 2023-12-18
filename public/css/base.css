@@ -18,8 +18,6 @@
 @media screen and (min-width: 990px)
 {
     .nav-item {
-        max-width: 150%;
-        width: auto;
         display: flex;
         justify-content: center;
         background-color: aqua;

@@ -14,7 +14,7 @@
         {% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg bg-light">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ path('app_accueil') }}">
                     <img class="home_logo" src="{{ asset('img/logo.png') }}" alt="#" height="75px">YouCook
@@ -23,12 +23,14 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="truc">
-                        <form class="form" role="search" action="">
-                            <div class="cat-menu btn">Catégories</div>
+                    <div class="search-bar">
+                        <form class="form d-flex" role="search" action="">
+                            <a class="cat-menu nav-link dropdown-toggle d-flex" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Catégories
+                            </a>
                             <input name="search" class="form-control" type="search" placeholder="Rechercher..." aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">
-                                Rechercher
+                                <img class="loop" src="{{ asset ('img/loop.png') }}">
                             </button>
                         </form>
                     </div>

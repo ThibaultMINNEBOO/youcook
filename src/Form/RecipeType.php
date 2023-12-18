@@ -2,12 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Ingredient;
 use App\Entity\Recipe;
 use App\Entity\RecipesCategory;
 use App\Entity\Tool;
 use App\Repository\ToolRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +20,13 @@ class RecipeType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('difficulty')
+            ->add('difficulty', ChoiceType::class, [
+                'choices' => [
+                    'EASY' => true,
+                    'MEDIUM' => true,
+                    'HARD' => true,
+                ],
+            ])
             ->add('description')
             ->add('nbPeople')
             ->add('time')
@@ -29,6 +37,15 @@ class RecipeType extends AbstractType
                     return $toolRepository->createQueryBuilder('c')
                         ->orderBy('c.name', 'ASC');
                 },
+            ])
+            ->add('ingredients', EntityType::class, [
+                'class' => Ingredient::class,
+                'multiple' => true,
+                'choice_label' => 'name',
+                'expanded' => true,
+                'attr' => [
+                    'class' => 'form-input',
+                ],
             ])
             ->add('recipeCategory', EntityType::class, [
                 'class' => RecipesCategory::class,

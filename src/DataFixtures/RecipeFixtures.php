@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Factory\ConstituteFactory;
+use App\Factory\IngredientFactory;
 use App\Factory\RecipeFactory;
 use App\Factory\RecipesCategoryFactory;
 use App\Factory\StepFactory;
@@ -46,8 +47,12 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         $constitute = ConstituteFactory::createOne([
                 'measure' => 'kg',
                 'quantity' => 10.5,
-            ]
-        );
+                'ingredients' => IngredientFactory::createSequence([
+                    ['name' => 'pain'],
+                    ['name' => 'lait'],
+                    ['name' => 'sucre'],
+                ]),
+            ]);
 
         RecipeFactory::createOne([
             'name' => 'Pain perdu',

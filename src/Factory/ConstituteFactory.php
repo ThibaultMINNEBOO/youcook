@@ -50,6 +50,7 @@ final class ConstituteFactory extends ModelFactory
         return [
             'measure' => 'c',
             'quantity' => self::faker()->randomFloat(),
+            'ingredients' => IngredientFactory::faker(),
         ];
     }
 

@@ -16,8 +16,8 @@ class Mark
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 1, scale: 1, nullable: true)]
-    private ?string $mark = null;
+    #[ORM\Column(nullable: true)]
+    private ?float $mark = null;
 
     #[ORM\OneToMany(mappedBy: 'mark', targetEntity: User::class)]
     private Collection $users;
@@ -36,12 +36,12 @@ class Mark
         return $this->id;
     }
 
-    public function getMark(): ?string
+    public function getMark(): ?float
     {
         return $this->mark;
     }
 
-    public function setMark(?string $mark): static
+    public function setMark(?float $mark): static
     {
         $this->mark = $mark;
 
@@ -66,6 +66,9 @@ class Mark
         return $this;
     }
 
+    /*
+     * @return Collection<int, Recipe>
+     */
     public function getRecipe(): Collection
     {
         return $this->recipe;
@@ -84,7 +87,6 @@ class Mark
     public function removeUser(User $user): static
     {
         if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
             if ($user->getMark() === $this) {
                 $user->setMark(null);
             }
@@ -96,7 +98,6 @@ class Mark
     public function removeRecipe(Recipe $recipe): static
     {
         if ($this->recipe->removeElement($recipe)) {
-            // set the owning side to null (unless already changed)
             if ($recipe->getMark() === $this) {
                 $recipe->setMark(null);
             }

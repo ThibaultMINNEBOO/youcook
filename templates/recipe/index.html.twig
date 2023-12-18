@@ -1,7 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RecipeController!{% endblock %}
+{% block title %}Liste des recettes{% endblock %}
 
 {% block body %}
-<h1>Liste des Recettes</h1>
+    <h1 style="text-align: center;">Liste des recettes</h1>
+    <div class="container">
+        <div class="row">
+            {% for recipe in recipes %}
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem; margin: 10px;">
+                        <a href="{{ path('app_recipe_show', {id: recipe.id}) }}">
+                        <img class="card-img-top" src="{{ asset('img/recipe_test.jpg') }}" alt="{{ recipe.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ recipe.name }}</h5>
+                            <p>{{ recipe.description }}</p>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

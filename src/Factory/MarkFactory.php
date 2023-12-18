@@ -47,6 +47,8 @@ final class MarkFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
+            'mark' => self::faker()->randomFloat(2, 0, 5),
+            'users' => UserFactory::createMany(5),
         ];
     }
 

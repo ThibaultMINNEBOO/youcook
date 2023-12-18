@@ -1,6 +1,12 @@
 .cat-menu {
+    background-color: white;
     border-radius: 50px 0 0 50px;
-    border-color: black;
+    border: 1px solid black;
+}
+.cat-menu:hover {
+    background-color: white;
+    border-radius: 50px 0 0 50px;
+    border: 1px solid black;
 }
 .form-control {
     border-radius: 0 0 0 0;
@@ -8,4 +14,17 @@
 }
 .btn-outline-success {
     border-radius: 0 50px 50px 0;
+}
+@media screen and (min-width: 990px)
+{
+    .nav-item {
+        max-width: 150%;
+        width: auto;
+        display: flex;
+        justify-content: center;
+        background-color: aqua;
+    }
+    .form-control {
+        width: 500px;
+    }
 }

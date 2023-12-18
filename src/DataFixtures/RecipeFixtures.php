@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Factory\ConstituteFactory;
 use App\Factory\RecipeFactory;
 use App\Factory\RecipesCategoryFactory;
 use App\Factory\StepFactory;
@@ -16,10 +17,10 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
     {
         $recipes = json_decode(file_get_contents(__DIR__.'/data/Recipes.json'), true);
         $tools = ToolFactory::createSequence([
-                ['name' => 'couteau'],
-                ['name' => 'cuillère'],
-                ['name' => 'assiette'],
-            ]);
+            ['name' => 'couteau'],
+            ['name' => 'cuillère'],
+            ['name' => 'assiette'],
+        ]);
         $steps = StepFactory::createSequence([
             [
                 'name' => 'Préparer les tranches de pain',
@@ -42,6 +43,11 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
                 'description' => 'Saupoudrer les tranches de pain avec un mélange de sucre et de cannelle. Servir chaud et déguster',
             ],
         ]);
+        $constitute = ConstituteFactory::createOne([
+                'measure' => 'kg',
+                'quantity' => 10.5,
+            ]
+        );
 
         RecipeFactory::createOne([
             'name' => 'Pain perdu',
@@ -51,6 +57,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
             'day' => 0,
             'hour' => 0,
             'minute' => 20,
+            'constitute' => $constitute,
         ]);
 
         foreach ($recipes as $recipe) {

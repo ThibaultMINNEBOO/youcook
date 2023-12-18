@@ -42,7 +42,7 @@
             </div>
             <div>
                 <h4>Ingrédients</h4>
-                {% for ingredient in recipe.constitute %}
+                {% for ingredient in recipe.constitute.ingredients %}
                     <div class="col-md-4">
                         <div class="card d-flex flex-row justify-content-left" style="margin: 10px; align-items: flex-end">
                             <img class="card-img-top" src="{{ asset('img/toolIcon.png') }}" alt="{{ recipe.name }}" style="height: 40px; width: 40px; margin: 5px">

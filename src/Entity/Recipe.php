@@ -36,6 +36,9 @@ class Recipe
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?RecipesCategory $recipeCategory = null;
 
+    #[ORM\OneToOne(mappedBy: 'recipe', cascade: ['persist', 'remove'])]
+    private ?Constitute $constitute = null;
+
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Step::class, orphanRemoval: true)]
     private Collection $steps;
 
@@ -220,8 +223,20 @@ class Recipe
         return $this;
     }
 
-    public function getTime(int $day, int $hour, int $minute): string
+    public function getConstitute(): ?Constitute
     {
-        return "$day:$hour:$minute";
+        return $this->constitute;
+    }
+
+    public function setConstitute(Constitute $constitute): static
+    {
+        // set the owning side of the relation if necessary
+        if ($constitute->getRecipe() !== $this) {
+            $constitute->setRecipe($this);
+        }
+
+        $this->constitute = $constitute;
+
+        return $this;
     }
 }

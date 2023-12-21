@@ -22,18 +22,16 @@ class Constitute
     #[ORM\Column(length: 4)]
     private ?string $measure = null;
 
-    #[ORM\OneToOne(inversedBy: 'constitute', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Recipe $recipe = null;
-
     #[ORM\OneToMany(mappedBy: 'constitute', targetEntity: Ingredient::class)]
     private Collection $ingredients;
+
+    #[ORM\OneToOne(inversedBy: 'constitute', cascade: ['persist', 'remove'])]
+    private ?Recipe $recipe = null;
 
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -60,18 +58,6 @@ class Constitute
     public function setMeasure(string $measure): static
     {
         $this->measure = $measure;
-
-        return $this;
-    }
-
-    public function getRecipe(): ?Recipe
-    {
-        return $this->recipe;
-    }
-
-    public function setRecipe(Recipe $recipe): static
-    {
-        $this->recipe = $recipe;
 
         return $this;
     }
@@ -106,4 +92,15 @@ class Constitute
         return $this;
     }
 
+    public function getRecipe(): ?Recipe
+    {
+        return $this->recipe;
+    }
+
+    public function setRecipe(?Recipe $recipe): static
+    {
+        $this->recipe = $recipe;
+
+        return $this;
+    }
 }

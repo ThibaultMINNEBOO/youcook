@@ -283,10 +283,15 @@ class Recipe
         return $this->constitute;
     }
 
-    public function setConstitute(Constitute $constitute): static
+    public function setConstitute(?Constitute $constitute): static
     {
+        // unset the owning side of the relation if necessary
+        if (null === $constitute && null !== $this->constitute) {
+            $this->constitute->setRecipe(null);
+        }
+
         // set the owning side of the relation if necessary
-        if ($constitute->getRecipe() !== $this) {
+        if (null !== $constitute && $constitute->getRecipe() !== $this) {
             $constitute->setRecipe($this);
         }
 

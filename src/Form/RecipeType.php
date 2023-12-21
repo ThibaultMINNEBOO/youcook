@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Recipe;
 use App\Entity\RecipesCategory;
 use App\Entity\Tool;
+use App\Repository\ToolRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,6 +24,11 @@ class RecipeType extends AbstractType
             ->add('tools', EntityType::class, [
                 'class' => Tool::class,
                 'choice_label' => 'name',
+                'query_builder' => function (ToolRepository $toolRepository) {
+                    return $toolRepository->createQueryBuilder('c')
+                        ->orderBy('c.name', 'ASC');
+                },
+
             ])
             ->add('recipeCategory', EntityType::class, [
                 'class' => RecipesCategory::class,

@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Mark $mark = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergen::class)]
+    #[ORM\ManyToMany(targetEntity: Allergen::class, inversedBy: 'users')]
     private Collection $allergens;
 
     public function __construct()

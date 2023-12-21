@@ -14,6 +14,5 @@ class RecipeCategoryFixtures extends Fixture
         foreach ($category as $name) {
             RecipesCategoryFactory::createOne($name);
         }
-
     }
 }

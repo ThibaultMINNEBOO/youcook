@@ -37,8 +37,6 @@ class RecipeType extends AbstractType
             ])
             ->add('save', SubmitType::class,
                 ['label' => 'Créer'])
-
-
         ;
     }
 

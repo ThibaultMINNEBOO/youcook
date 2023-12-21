@@ -24,8 +24,8 @@ class Ingredient
     private ?Allergen $allergen = null;
 
     #[ORM\ManyToOne(inversedBy: 'ingredients')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Constitute $constitute = null;
-
 
     public function getId(): ?int
     {
@@ -91,5 +91,4 @@ class Ingredient
 
         return $this;
     }
-
 }

@@ -16,7 +16,7 @@ class Constitute
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
+    #[ORM\Column(type: Types::FLOAT, precision: 6, scale: 2)]
     private ?string $quantity = null;
 
     #[ORM\Column(length: 4)]
@@ -40,12 +40,12 @@ class Constitute
         return $this->id;
     }
 
-    public function getQuantity(): ?string
+    public function getQuantity(): ?float
     {
         return $this->quantity;
     }
 
-    public function setQuantity(string $quantity): static
+    public function setQuantity(float $quantity): static
     {
         $this->quantity = $quantity;
 

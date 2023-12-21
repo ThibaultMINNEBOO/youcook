@@ -59,12 +59,14 @@ class Recipe
     #[ORM\Column(type: 'datetime')]
     private \DateTimeImmutable $updatedAt;
 
+    #[ORM\OneToOne(mappedBy: 'recipe', cascade: ['persist', 'remove'])]
+    private ?Constitute $constitute = null;
+
     public function __construct()
     {
         $this->tools = new ArrayCollection();
         $this->updatedAt = new \DateTimeImmutable();
         $this->steps = new ArrayCollection();
-        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -267,11 +269,29 @@ class Recipe
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): Recipe
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 
     public function getUpdatedAt(): \DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    public function getConstitute(): ?Constitute
+    {
+        return $this->constitute;
+    }
+
+    public function setConstitute(Constitute $constitute): static
+    {
+        // set the owning side of the relation if necessary
+        if ($constitute->getRecipe() !== $this) {
+            $constitute->setRecipe($this);
+        }
+
+        $this->constitute = $constitute;
+
+        return $this;
     }
 }

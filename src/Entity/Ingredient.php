@@ -23,6 +23,10 @@ class Ingredient
     private ?IngredientCategory $category = null;
     private ?Allergen $allergen = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ingredients')]
+    private ?Constitute $constitute = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,4 +79,17 @@ class Ingredient
 
         return $this;
     }
+
+    public function getConstitute(): ?Constitute
+    {
+        return $this->constitute;
+    }
+
+    public function setConstitute(?Constitute $constitute): static
+    {
+        $this->constitute = $constitute;
+
+        return $this;
+    }
+
 }

@@ -33,12 +33,13 @@ class RecipeType extends AbstractType
             ->add('time')
             ->add('tools', EntityType::class, [
                 'class' => Tool::class,
+                'multiple' => true,
                 'choice_label' => 'name',
+                'expanded' => true,
                 'query_builder' => function (ToolRepository $toolRepository) {
                     return $toolRepository->createQueryBuilder('c')
                         ->orderBy('c.name', 'ASC');
                 },
-
             ])
             ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,

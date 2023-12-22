@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Constitute;
 use App\Entity\Recipe;
 use App\Entity\User;
 use App\Form\RecipeType;
@@ -25,17 +26,21 @@ class RecipeController extends AbstractController
     public function create(User $user, Request $request, EntityManagerInterface $entityManager): Response
     {
         $recipe = new Recipe();
+        $constitute = new Constitute();
+        $constitute->setRecipe($recipe);
         $form = $this->createForm(RecipeType::class);
         $form->handleRequest($request);
+
+        foreach ($request->request->get('Ingredients') as $ingredient) {
+            $constitute->addIngredient($ingredient);
+        }
+        $recipe->setConstitute($constitute);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($recipe);
             $entityManager->flush();
         }
 
-
-
         return $this->render('recipe/create.html.twig', ['form' => $form->createView()]);
-
     }
-
 }

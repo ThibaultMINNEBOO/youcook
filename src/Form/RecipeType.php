@@ -2,10 +2,13 @@
 
 namespace App\Form;
 
+use App\Entity\Constitute;
 use App\Entity\Ingredient;
 use App\Entity\Recipe;
 use App\Entity\RecipesCategory;
 use App\Entity\Tool;
+use App\Repository\ConstituteRepository;
+use App\Repository\IngredientRepository;
 use App\Repository\ToolRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -46,9 +49,10 @@ class RecipeType extends AbstractType
                 'multiple' => true,
                 'choice_label' => 'name',
                 'expanded' => true,
-                'attr' => [
-                    'class' => 'form-input',
-                ],
+                'query_builder' => function (IngredientRepository $ingredientRepository) {
+                    return $ingredientRepository->createQueryBuilder('c')
+                        ->orderBy('c.name', 'ASC');
+                },
             ])
 
             ->add('recipeCategory', EntityType::class, [

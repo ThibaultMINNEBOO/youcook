@@ -8,11 +8,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[Vich\Uploadable]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -41,18 +44,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $biography = null;
 
+    #[Vich\UploadableField(mapping: 'user_avatar', fileNameProperty: 'pictureName')]
+    private ?File $picture = null;
+
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $picture = null;
+    private ?string $pictureName = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Mark $mark = null;
 
     #[ORM\ManyToMany(targetEntity: Allergen::class, inversedBy: 'users')]
     private Collection $allergens;
+    #[ORM\Column(type: 'datetime')]
+    private \DateTimeImmutable $updatedAt;
 
     public function __construct()
     {
         $this->allergens = new ArrayCollection();
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getPicture(): ?File
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(File $picture = null): void
+    {
+        $this->picture = $picture;
+
+        if (null !== $picture) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
     public function getId(): ?int
@@ -161,14 +184,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPicture(): ?string
+    public function getPictureName(): ?string
     {
-        return $this->picture;
+        return $this->pictureName;
     }
 
-    public function setPicture(?string $picture): static
+    public function setPictureName(?string $pictureName): static
     {
-        $this->picture = $picture;
+        $this->pictureName = $pictureName;
 
         return $this;
     }
@@ -213,5 +236,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): User
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
     }
 }

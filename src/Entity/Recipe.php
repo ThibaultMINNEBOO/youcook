@@ -62,6 +62,7 @@ class Recipe
     public function __construct()
     {
         $this->tools = new ArrayCollection();
+        $this->updatedAt = new \DateTimeImmutable();
         $this->steps = new ArrayCollection();
         $this->updatedAt = new \DateTimeImmutable();
     }

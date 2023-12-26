@@ -6,8 +6,11 @@ use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
+#[Vich\Uploadable]
 class Recipe
 {
     #[ORM\Id]
@@ -48,9 +51,18 @@ class Recipe
     #[ORM\Column]
     private ?int $minute = 0;
 
+    #[Vich\UploadableField(mapping: 'recipe_image', fileNameProperty: 'pictureName')]
+    private ?File $picture = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pictureName = null;
+    #[ORM\Column(type: 'datetime')]
+    private \DateTimeImmutable $updatedAt;
+
     public function __construct()
     {
         $this->tools = new ArrayCollection();
+        $this->updatedAt = new \DateTimeImmutable();
         $this->steps = new ArrayCollection();
     }
 
@@ -223,5 +235,42 @@ class Recipe
     public function getTime(int $day, int $hour, int $minute): string
     {
         return "$day:$hour:$minute";
+    }
+
+    public function getPictureName(): ?string
+    {
+        return $this->pictureName;
+    }
+
+    public function setPictureName(?string $pictureName): static
+    {
+        $this->pictureName = $pictureName;
+
+        return $this;
+    }
+
+    public function getPicture(): ?File
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?File $picture): void
+    {
+        $this->picture = $picture;
+
+        if (null !== $picture) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): Recipe
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function getUpdatedAt(): \DateTimeImmutable
+    {
+        return $this->updatedAt;
     }
 }

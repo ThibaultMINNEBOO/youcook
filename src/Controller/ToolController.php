@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Tool;
 use App\Repository\ToolRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,4 +19,10 @@ class ToolController extends AbstractController
             'tools' => $tools,
         ]);
     }
+    #[Route('/tool/{id}', name: 'app_tool_show', requirements: ['id' => '\d+'])]
+    public function show(Tool $tool): Response
+    {
+        return $this->render('tool/show.html.twig', ['tool' => $tool]);
+    }
+
 }

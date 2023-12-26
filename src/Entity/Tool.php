@@ -21,6 +21,10 @@ class Tool
     #[ORM\ManyToMany(targetEntity: Recipe::class, mappedBy: 'tools')]
     private Collection $recipes;
 
+    #[ORM\ManyToOne(inversedBy: 'tools')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ToolCategory $toolCategory = null;
+
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
@@ -66,6 +70,18 @@ class Tool
         if ($this->recipes->removeElement($recipe)) {
             $recipe->removeTool($this);
         }
+
+        return $this;
+    }
+
+    public function getToolCategory(): ?ToolCategory
+    {
+        return $this->toolCategory;
+    }
+
+    public function setToolCategory(?ToolCategory $toolCategory): static
+    {
+        $this->toolCategory = $toolCategory;
 
         return $this;
     }

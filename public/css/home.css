@@ -1,0 +1,28 @@
+body {
+    font-family: "Comic Sans MS" , sans-serif;
+    overflow: hidden;
+}
+.home_body {
+    height: 100%;
+}
+.home_video {
+    background-color: black;
+    width: 100%;
+    height: 30vh;
+}
+.home_video .video{
+    width: 100%;
+    height: 30vh;
+    overflow: hidden;
+    object-fit: cover;
+}
+.filter_list {
+    width: 20%;
+    padding-left: 20px;
+    background-color: #ececec;
+    color: #528B2D;
+}
+.home_recipe {
+    background-color: darkred;
+    width: 80%;
+}

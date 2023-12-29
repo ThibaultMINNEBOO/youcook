@@ -19,10 +19,12 @@ body {
 .filter_list {
     width: 20%;
     padding-left: 20px;
-    background-color: #ececec;
-    color: #528B2D;
+    padding-top: 10px;
+    color: #2ca61e;
 }
 .home_recipe {
-    background-color: darkred;
+    padding-left: 20px;
+    padding-top: 10px;
+    background-color: #B0413E;
     width: 80%;
 }

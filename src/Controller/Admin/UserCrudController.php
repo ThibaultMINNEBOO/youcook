@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -25,8 +26,8 @@ class UserCrudController extends AbstractCrudController
             TextField::new('lastname'),
             TextField::new('firstname'),
             TextField::new('email'),
-            TextField::new('picture')->setFormType(VichImageType::class)->onlyOnForms(),
-            ImageField::new('pictureName', 'Avatar')->setBasePath('/uploads/avatars/')->onlyOnIndex(),
+            AssociationField::new('picture')->renderAsEmbeddedForm(UserAvatarCrudController::class)->onlyOnForms(),
+            ImageField::new('picture.pictureName', 'Image')->setBasePath('/images/avatars')->onlyOnIndex(),
             TextEditorField::new('biography'),
         ];
     }

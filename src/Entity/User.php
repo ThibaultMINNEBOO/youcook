@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -44,38 +43,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $biography = null;
 
-    #[Vich\UploadableField(mapping: 'user_avatar', fileNameProperty: 'pictureName')]
-    private ?File $picture = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $pictureName = null;
-
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Mark $mark = null;
 
     #[ORM\ManyToMany(targetEntity: Allergen::class, inversedBy: 'users')]
     private Collection $allergens;
-    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
-    private \DateTimeImmutable $updatedAt;
+    #[ORM\Column(type: 'datetime')]
+    private \DateTime $updatedAt;
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?UserAvatar $picture = null;
 
     public function __construct()
     {
         $this->allergens = new ArrayCollection();
-        $this->updatedAt = new \DateTimeImmutable();
-    }
-
-    public function getPicture(): ?File
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(File $picture = null): void
-    {
-        $this->picture = $picture;
-
-        if (null !== $picture) {
-            $this->updatedAt = new \DateTimeImmutable();
-        }
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -184,18 +166,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPictureName(): ?string
-    {
-        return $this->pictureName;
-    }
-
-    public function setPictureName(?string $pictureName): static
-    {
-        $this->pictureName = $pictureName;
-
-        return $this;
-    }
-
     public function getMark(): ?Mark
     {
         return $this->mark;
@@ -238,14 +208,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): User
+    public function setUpdatedAt(\DateTime $updatedAt): User
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 
-    public function getUpdatedAt(): \DateTimeImmutable
+    public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
+    }
+
+    public function getPicture(): ?UserAvatar
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?UserAvatar $picture): static
+    {
+        // unset the owning side of the relation if necessary
+        if (null === $picture && null !== $this->picture) {
+            $this->picture->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if (null !== $picture && $picture->getUser() !== $this) {
+            $picture->setUser($this);
+        }
+
+        $this->picture = $picture;
+
+        return $this;
     }
 }

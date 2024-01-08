@@ -1,7 +1,8 @@
 body {
     background-color: #e7e7e7;
 }
-.cat-menu {
+.cat-menu,
+.cat-menu:hover {
     background-color: #c3df82;
     color: black;
     border-radius: 50px 0 0 50px;
@@ -16,7 +17,17 @@ body {
     border-radius: 50px 0 0 50px;
     border: 1px solid black;
 }
-
+.cat-menu:focus,
+.cat-menu.show {
+    background-color: #c3df82;
+}
+.dropdown-menu {
+    background-color: #c3df82;
+}
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: #afc876;
+}
 .form-control {
     border-radius: 0 0 0 0;
     border-color: black;

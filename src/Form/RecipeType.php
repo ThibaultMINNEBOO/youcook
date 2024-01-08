@@ -33,7 +33,10 @@ class RecipeType extends AbstractType
 
             ->add('description')
             ->add('nbPeople')
-            ->add('time')
+            ->add('day')
+            ->add('hour')
+            ->add('minute')
+
             ->add('tools', EntityType::class, [
                 'class' => Tool::class,
                 'multiple' => true,

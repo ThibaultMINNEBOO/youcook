@@ -44,7 +44,10 @@ class RecipeController extends AbstractController
             $finalRecipe->setDescription($recipe->getDescription());
             $finalRecipe->setMark($recipe->getMark());
             $finalRecipe->setName($recipe->getName());
-            $finalRecipe->setTime($recipe->getTime());
+            $finalRecipe->setDay($recipe->getDay());
+            $finalRecipe->setHour($recipe->getHour());
+            $finalRecipe->setMinute($recipe->getMinute());
+
             $finalRecipe->setDifficulty($recipe->getDifficulty());
             $finalRecipe->setNbPeople($recipe->getNbPeople());
             $entityManager->persist($constitute);

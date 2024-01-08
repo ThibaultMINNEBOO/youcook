@@ -2,18 +2,16 @@
 
 namespace App\Form;
 
-use App\Entity\Constitute;
 use App\Entity\Ingredient;
 use App\Entity\Recipe;
 use App\Entity\RecipesCategory;
 use App\Entity\Tool;
-use App\Repository\ConstituteRepository;
-use App\Repository\IngredientRepository;
 use App\Repository\ToolRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -56,7 +54,9 @@ class RecipeType extends AbstractType
                     'class' => 'form-input',
                 ],
             ])
-
+            ->add('quantity', TextType::class, [
+                'mapped' => false,
+            ])
 
             ->add('recipeCategory', EntityType::class, [
                 'class' => RecipesCategory::class,

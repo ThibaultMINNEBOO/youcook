@@ -1,6 +1,7 @@
-body {
+
+.body {
     font-family: "Comic Sans MS" , sans-serif;
-    overflow: hidden;
+    overflow: auto;
 }
 .home_body {
     height: 100%;
@@ -17,14 +18,24 @@ body {
     object-fit: cover;
 }
 .filter_list {
-    width: 20%;
+    width: 15%;
     padding-left: 20px;
     padding-top: 10px;
     color: #2ca61e;
 }
 .home_recipe {
     padding-left: 20px;
+    padding-right: 20px;
     padding-top: 10px;
-    background-color: #B0413E;
-    width: 80%;
+    width: 85%;
+}
+
+.custom-card {
+    width: 350px;
+    height: 350px;
+}
+
+.home_recipe .img_recipe {
+    width: 90%;
+    height: 80%;
 }

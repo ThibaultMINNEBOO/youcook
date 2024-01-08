@@ -44,16 +44,16 @@ class RecipeType extends AbstractType
                         ->orderBy('c.name', 'ASC');
                 },
             ])
-            ->add('ingredients', EntityType::class, [
+            ->add('constitutes', EntityType::class, [
                 'class' => Ingredient::class,
                 'multiple' => true,
                 'choice_label' => 'name',
                 'expanded' => true,
-                'query_builder' => function (IngredientRepository $ingredientRepository) {
-                    return $ingredientRepository->createQueryBuilder('c')
-                        ->orderBy('c.name', 'ASC');
-                },
+                'attr' => [
+                    'class' => 'form-input',
+                ],
             ])
+
 
             ->add('recipeCategory', EntityType::class, [
                 'class' => RecipesCategory::class,

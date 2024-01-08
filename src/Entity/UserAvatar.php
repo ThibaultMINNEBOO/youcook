@@ -33,7 +33,7 @@ class UserAvatar implements \Serializable
         }
     }
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $pictureName = null;
 
     #[ORM\Column(nullable: true)]

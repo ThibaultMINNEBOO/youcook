@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -56,13 +57,12 @@ class Recipe
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pictureName = null;
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private \DateTimeImmutable $updatedAt;
 
     public function __construct()
     {
         $this->tools = new ArrayCollection();
-        $this->updatedAt = new \DateTimeImmutable();
         $this->steps = new ArrayCollection();
         $this->updatedAt = new \DateTimeImmutable();
     }

@@ -1,2 +1,29 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="home_video">
+        <video class="video" autoplay muted loop>
+            <source src="{{ asset('video/home_video.mp4') }}" type="video/mp4">
+        </video>
+    </div>
+    <div class="home_body d-flex">
+        <div class="filter_list">
+            <h2>Filtres</h2>
+            <ul class="filter">
+                {% for category in categories %}
+                    <li>
+                        <span class="category">{{ category.name }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="home_recipe">
+        blablabla
+        </div>
+    </div>
+{% endblock %}
+

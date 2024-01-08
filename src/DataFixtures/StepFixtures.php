@@ -14,7 +14,7 @@ class StepFixtures extends Fixture implements DependentFixtureInterface
         StepFactory::createMany(10);
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             RecipeFixtures::class,

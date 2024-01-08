@@ -27,6 +27,7 @@
 .custom-card {
     width: 350px;
     height: 350px;
+    text-align: left;
 }
 
 .home_recipe .img_recipe {

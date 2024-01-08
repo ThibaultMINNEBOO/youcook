@@ -1,17 +1,20 @@
 [
   {
-    "name": "Entrée"
+    "name": "Apéritifs"
   },
   {
-    "name": "PLat"
+    "name": "Entrées"
   },
   {
-    "name": "Dessert"
+    "name": "Plats"
   },
   {
-    "name": "Apéritif"
+    "name": "Desserts / Sucrées"
   },
   {
     "name": "Boissons"
+  },
+  {
+    "name": "Petit-dèj / Brunch"
   }
 ]

@@ -12,16 +12,6 @@
         </video>
     </div>
     <div class="home_body d-flex">
-        <div class="filter_list">
-            <h2>Filtres</h2>
-            <ul class="filter">
-                {% for category in categories %}
-                    <li>
-                        <span class="category">{{ category.name }}</span>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
         <div class="home_recipe d-flex">
             <ul class="list_recipe row list-unstyled justify-content-around">
                 {% for recipe in recipes %}

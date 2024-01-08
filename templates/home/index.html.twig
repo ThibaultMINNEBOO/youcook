@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+    <body>
     <div class="home_video">
         <video class="video" autoplay muted loop>
             <source src="{{ asset('video/home_video.mp4') }}" type="video/mp4">
@@ -21,9 +22,20 @@
                 {% endfor %}
             </ul>
         </div>
-        <div class="home_recipe">
-        blablabla
+        <div class="home_recipe d-flex">
+            <ul class="list_recipe row list-unstyled justify-content-between">
+                {% for recipe in recipes %}
+                    <div class="card col-md-3 custom-card">
+                        <li class="recipe card-body">
+                            <img class="img_recipe" src="{{ asset('img/recipe-default.png') }}"><br>
+                            <span class="card-title">{{ recipe.name | u.truncate(50, '...') }}</span><br>
+                            <span class="mark">{{ recipe.mark.mark }}</span>
+                        </li>
+                    </div>
+                {% endfor %}
+            </ul>
         </div>
     </div>
+    </body>
 {% endblock %}
 

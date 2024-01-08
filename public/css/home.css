@@ -1,11 +1,10 @@
 
-.body {
+.home_body {
     font-family: "Comic Sans MS" , sans-serif;
     overflow: auto;
+    text-align: center;
 }
-.home_body {
-    height: 100%;
-}
+
 .home_video {
     background-color: black;
     width: 100%;
@@ -33,4 +32,22 @@
 .home_recipe .img_recipe {
     width: 90%;
     height: 80%;
+}
+
+.recipe_item {
+    border: none;
+    background-color: #e7e7e7;
+
+}
+
+h2 {
+    color : #2ca61e;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 50px;
+    border: 2px solid #2ca61e;
+    display: inline-block;
+    margin-left: auto;
 }

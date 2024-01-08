@@ -1,3 +1,6 @@
+.dropdown {
+    background-color: #c3df82;
+}
 .cat-menu {
     background-color: #c3df82;
     color: black;
@@ -5,6 +8,9 @@
     border: 1px solid black;
     align-items: center;
     padding: 2px 10px 2px 10px;
+}
+.cat-menu .btn {
+    height: 10px;
 }
 .cat-menu:hover {
     background-color: #afc876;

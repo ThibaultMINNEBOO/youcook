@@ -48,6 +48,7 @@ final class StepFactory extends ModelFactory
     {
         return [
             'name' => self::faker()->text(120),
+            'recipe' => RecipeFactory::random(),
         ];
     }
 
@@ -57,7 +58,6 @@ final class StepFactory extends ModelFactory
     protected function initialize(): self
     {
         return $this
-            // ->afterInstantiate(function(Step $etape): void {})
         ;
     }
 

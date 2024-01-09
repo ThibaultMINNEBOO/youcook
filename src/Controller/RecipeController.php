@@ -18,9 +18,7 @@ class RecipeController extends AbstractController
     #[Route('/recipe', name: 'app_recipe')]
     public function index(): Response
     {
-        return $this->render('recipe/index.html.twig', [
-            'controller_name' => 'RecipeController',
-        ]);
+        return $this->render('recipe/index.html.twig');
     }
 
     #[Route('/recipe/create', name: 'app_recipe_create', requirements: ['id' => '\d+'])]

@@ -6,20 +6,21 @@
     <h1>Création de recette</h1>
     {{ form_start(form) }}
     {{ form_row(form.name) }}
-    {{ form_row(form.picture) }}
+    {{ form_row(form.recipeCategory) }}
     {{ form_row(form.difficulty) }}
-    {{ form_row(form.description) }}
+
     {{ form_row(form.nbPeople) }}
     {{ form_row(form.day) }}
     {{ form_row(form.hour) }}
     {{ form_row(form.minute) }}
+    <div id="constitutes" data-prototype="{{ form_row(form.
+    constitutes.vars.prototype)|e('html_attr') }}">
+    {{ form_row(form.constitutes) }}
+    <span></span>
+    </div>
     {{ form_row(form.tools) }}
-        <div id="constitutes" data-prototype="{{ form_row(form.
-        constitutes.vars.prototype)|e('html_attr') }}">
-            {{ form_row(form.constitutes) }}
-            <span></span>
-        </div>
-    {{ form_row(form.recipeCategory) }}
+    {{ form_row(form.picture) }}
+    {{ form_row(form.description) }}
     {{ form_end(form) }}
 {% endblock %}
 {% block javascripts %}

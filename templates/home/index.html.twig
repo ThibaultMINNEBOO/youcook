@@ -15,7 +15,7 @@
     <div class="d-flex">
         <div class="home_recipe d-flex">
             <ul class="list_recipe row list-unstyled justify-content-around">
-                {% for recipe in recipes %}
+                {% for recipe in recipes|slice(0, 5) %}
                     <div class="recipe_item card col-md-3 custom-card">
                         <li class="recipe card-body">
                             <img class="img_recipe" src="{{ asset('img/recipe-default.png') }}"><br>

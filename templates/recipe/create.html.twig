@@ -2,9 +2,27 @@
 
 {% block title %}Hello RecipeController!{% endblock %}
 
+{% block stylesheets %}
+    <style>
+        .formRecipe {
+            display:flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        .formRecipeTitle{
+        text-align: center;
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <h1>Création de recette</h1>
+
+    <h1 class="formRecipeTitle">Création de recette</h1>
+
     {{ form_start(form) }}
+    <div class="formRecipe">
     {{ form_row(form.name) }}
     {{ form_row(form.recipeCategory) }}
     {{ form_row(form.difficulty) }}
@@ -26,7 +44,10 @@
     {{ form_row(form.tools) }}
     {{ form_row(form.picture) }}
     {{ form_row(form.description) }}
+
     {{ form_end(form) }}
+    </div>
+
 {% endblock %}
 {% block javascripts %}
     <script>
@@ -58,7 +79,7 @@
             })
             stepCollection.dataset.index = stepCollection.querySelectorAll("input").length;
             addButtonStep.addEventListener("click", function(){
-                addButton(stepCollection, newButtonStep);
+                addStepButton(stepCollection, newButtonStep);
 
             })
         }
@@ -77,6 +98,38 @@
             deleteButton.className = "btn btn-danger";
             deleteButton.id = "delete-ingredient-"+index;
             deleteButton.innerText = "supprimer cet ingredient";
+
+
+
+            newForm.append(deleteButton);
+
+            collection.dataset.index++;
+
+            let addButtonIngredient = collection.querySelector(".ajout-ingredient");
+
+            span.insertBefore(newForm, addButtonIngredient);
+
+            deleteButton.addEventListener("click", function(){
+                this.previousElementSibling.parentElement.remove();
+            })
+        }
+        function addStepButton(collection, newButton){
+            let prototype = collection.dataset.prototype;
+            let index = collection.dataset.index;
+
+            prototype = prototype.replace(/__name__/g, index);
+
+            let content = document.createElement("html");
+            content.innerHTML = prototype;
+            let newForm = content.querySelector("div");
+
+            let deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "btn btn-danger";
+            deleteButton.id = "delete-step-"+index;
+            deleteButton.innerText = "supprimer cette étape";
+
+
 
             newForm.append(deleteButton);
 

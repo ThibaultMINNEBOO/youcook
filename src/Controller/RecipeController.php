@@ -22,7 +22,7 @@ class RecipeController extends AbstractController
     }
 
     #[Route('/recipe/create', name: 'app_recipe_create', requirements: ['id' => '\d+'])]
-    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    #[IsGranted('IS_AUTHENTICATED')]
     public function create(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         // $user = $userRepository->findBy(['email' => $this->getUser()->getUserIdentifier()]);

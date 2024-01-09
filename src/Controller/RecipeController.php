@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Constitute;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class RecipeController extends AbstractController
 {
@@ -21,10 +23,11 @@ class RecipeController extends AbstractController
         ]);
     }
 
-    #[Route('/recipe/{id}/create', name: 'app_recipe_create', requirements: ['id' => '\d+'])]
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/recipe/create', name: 'app_recipe_create', requirements: ['id' => '\d+'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    public function create(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
-        // $userId = $this->getUser()->getUserIdentifier();
+        // $user = $userRepository->findBy(['email' => $this->getUser()->getUserIdentifier()]);
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
 
@@ -57,7 +60,6 @@ class RecipeController extends AbstractController
 
             // return $this->redirectToRoute("");
         }
-
 
         /*if ($form->isSubmitted() && $form->isValid()) {
             $ingredients = $request->request->get('constitutes');

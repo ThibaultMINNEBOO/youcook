@@ -21,6 +21,8 @@ class Ingredient
 
     #[ORM\ManyToOne(inversedBy: 'ingredients')]
     private ?IngredientCategory $category = null;
+
+    #[ORM\ManyToOne(inversedBy: 'ingredients')]
     private ?Allergen $allergen = null;
 
     public function getId(): ?int

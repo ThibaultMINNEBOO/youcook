@@ -15,6 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Config\VichUploaderConfig;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use function Sodium\add;
 
 class RecipeType extends AbstractType
 {
@@ -22,6 +25,7 @@ class RecipeType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('picture', VichImageType::class)
             ->add('difficulty', ChoiceType::class, [
                 'choices' => [
                     'EASY' => true,

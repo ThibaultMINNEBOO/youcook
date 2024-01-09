@@ -24,13 +24,16 @@ class RecipeType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom de la Recette',
+                'empty_data' => '',
             ])
             ->add('picture', VichImageType::class, [
                 'label' => 'Image',
+                'empty_data' => '',
                 'required' => false,
             ])
             ->add('difficulty', ChoiceType::class, [
                 'label' => 'Difficulté',
+                'empty_data' => '',
                 'choices' => [
                     'FACILE' => true,
                     'MOYEN' => true,
@@ -40,23 +43,29 @@ class RecipeType extends AbstractType
 
             ->add('description', TextType::class, [
                 'label' => 'Description',
+                'empty_data' => '',
             ])
             ->add('nbPeople', IntegerType::class, [
                 'label' => 'Nombre de Personne',
+                'empty_data' => '',
             ])
             ->add('day', IntegerType::class, [
                 'label' => 'Jour(s)',
+                'empty_data' => '',
             ])
             ->add('hour', IntegerType::class, [
                 'label' => 'Heure(s)',
+                'empty_data' => '',
             ])
             ->add('minute', IntegerType::class, [
                 'label' => 'Minute(s)',
+                'empty_data' => '',
             ])
 
             ->add('tools', EntityType::class, [
                 'class' => Tool::class,
                 'label' => 'Outils',
+                'empty_data' => '',
                 'multiple' => true,
                 'choice_label' => 'name',
                 'expanded' => true,
@@ -69,6 +78,7 @@ class RecipeType extends AbstractType
             ->add('constitutes', CollectionType::class, [
                 'entry_type' => ConstituteType::class,
                 'label' => 'Ingredients',
+                'empty_data' => '',
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -77,6 +87,7 @@ class RecipeType extends AbstractType
             ->add('steps', CollectionType::class, [
                 'entry_type' => StepType::class,
                 'label' => 'Étapes',
+                'empty_data' => '',
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -86,6 +97,7 @@ class RecipeType extends AbstractType
 
             ->add('recipeCategory', EntityType::class, [
                 'class' => RecipesCategory::class,
+                'empty_data' => '',
                 'choice_label' => 'name',
                 'label' => 'Catégorie de Recette',
             ])

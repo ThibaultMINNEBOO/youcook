@@ -56,7 +56,7 @@ class RecipeController extends AbstractController
             $entityManager->persist($recipe);
             $entityManager->flush();
 
-            // return $this->redirectToRoute("");
+            return $this->redirectToRoute('app_recipe_create');
         }
 
         /*if ($form->isSubmitted() && $form->isValid()) {

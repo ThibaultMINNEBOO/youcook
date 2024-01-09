@@ -7,6 +7,7 @@ use App\Entity\Ingredient;
 use App\Entity\IngredientCategory;
 use App\Entity\Recipe;
 use App\Entity\RecipesCategory;
+use App\Entity\Tool;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -37,5 +38,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Catégories d\'ingrédients', 'fa fa-list', IngredientCategory::class);
         yield MenuItem::linkToCrud('Allergènes', 'fa fa-list', Allergen::class);
         yield MenuItem::linkToCrud('Catégories de recettes', 'fa fa-list', RecipesCategory::class);
+        yield MenuItem::linkToCrud('Outils', 'fa fa-list', Tool::class);
     }
 }

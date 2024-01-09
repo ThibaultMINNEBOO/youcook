@@ -20,7 +20,6 @@ class RecipeCategoryController extends AbstractController
     #[Route('/recipe/category/{id}', name: 'app_recipe_category_show', requirements: ['id' => '\d+'])]
     public function show(RecipesCategory $recipeCategory, RecipesCategoryRepository $recipesCategoryRepository, RecipeRepository $recipes, int $id): Response
     {
-        dump($recipes->findWithCategory($id));
         return $this->render('recipe_category/show.html.twig', [
             'recipeCategory' => $recipeCategory,
             'categories' => $recipesCategoryRepository->findAll(),

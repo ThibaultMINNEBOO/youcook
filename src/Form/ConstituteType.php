@@ -16,9 +16,9 @@ class ConstituteType extends AbstractType
         $builder
             ->add('quantity')
             ->add('measure')
-            ->add('recipe')
-            ->add('ingredients', EntityType::class,[
+            ->add('ingredient', EntityType::class, [
             'class' => Ingredient::class,
+                'choice_label' => 'name',
                 ])
         ;
     }

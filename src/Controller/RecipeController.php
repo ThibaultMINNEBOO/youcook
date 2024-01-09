@@ -31,7 +31,7 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $finalRecipe = new Recipe();
+            /**$finalRecipe = new Recipe();
             foreach ($recipe->getConstitutes() as $ingredient) {
                 $constitute = new Constitute();
                 $constitute->setIngredient($ingredient);
@@ -51,7 +51,8 @@ class RecipeController extends AbstractController
             $finalRecipe->setDifficulty($recipe->getDifficulty());
             $finalRecipe->setNbPeople($recipe->getNbPeople());
             $entityManager->persist($constitute);
-            $entityManager->persist($finalRecipe);
+            $entityManager->persist($finalRecipe);**/
+            $entityManager->persist($recipe);
             $entityManager->flush();
 
             // return $this->redirectToRoute("");

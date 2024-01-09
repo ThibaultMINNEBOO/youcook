@@ -13,8 +13,59 @@
     {{ form_row(form.hour) }}
     {{ form_row(form.minute) }}
     {{ form_row(form.tools) }}
-    {{ form_row(form.constitutes) }}
-    {{ form_row(form.quantity) }}
+        <div id="constitutes" data-prototype="{{ form_row(form.
+        constitutes.vars.prototype)|e('html_attr') }}">
+            {{ form_row(form.constitutes) }}
+            <span></span>
+        </div>
     {{ form_row(form.recipeCategory) }}
     {{ form_end(form) }}
+{% endblock %}
+{% block javascripts %}
+    <script>
+        let collection, addButtonIngredient, span;
+        window.onload = () => {
+            collection = document.querySelector("#constitutes");
+            span = collection.querySelector("span");
+            addButtonIngredient = document.createElement("button");
+            addButtonIngredient.className = "ajout-ingredient btn btn-primary";
+            addButtonIngredient.innerText = "Ajouter un Ingrédient";
+
+            let newButton = span.append(addButtonIngredient);
+
+            collection.dataset.index = collection.querySelectorAll("input").length;
+            addButtonIngredient.addEventListener("click", function(){
+                addButton(collection, newButton);
+
+            })
+        }
+        function addButton(collection, newButton){
+            let prototype = collection.dataset.prototype;
+            let index = collection.dataset.index;
+
+            prototype = prototype.replace(/__name__/g, index);
+
+            let content = document.createElement("html");
+            content.innerHTML = prototype;
+            let newForm = content.querySelector("div");
+
+            let deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "btn btn-danger";
+            deleteButton.id = "delete-ingredient-"+index;
+            deleteButton.innerText = "supprimer cet ingredient";
+
+            newForm.append(deleteButton);
+
+            collection.dataset.index++;
+
+            let addButtonIngredient = collection.querySelector(".ajout-ingredient");
+
+            span.insertBefore(newForm, addButtonIngredient);
+
+            deleteButton.addEventListener("click", function(){
+                this.previousElementSibling.parentElement.remove();
+            })
+        }
+    </script>
 {% endblock %}

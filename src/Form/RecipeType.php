@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,24 +25,40 @@ class RecipeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('picture', VichImageType::class)
+            ->add('name', TextType::class, [
+                'label' => 'Nom de la Recette',
+            ])
+            ->add('picture', VichImageType::class, [
+                'label' => 'Image',
+            ])
             ->add('difficulty', ChoiceType::class, [
+                'label' => 'Difficulté',
                 'choices' => [
-                    'EASY' => true,
-                    'MEDIUM' => true,
-                    'HARD' => true,
+                    'FACILE' => true,
+                    'MOYEN' => true,
+                    'DIFFICILE' => true,
                 ],
             ])
 
-            ->add('description')
-            ->add('nbPeople')
-            ->add('day')
-            ->add('hour')
-            ->add('minute')
+            ->add('description', TextType::class, [
+                'label' => 'Description',
+            ])
+            ->add('nbPeople', IntegerType::class, [
+                'label' => 'Nombre de Personne',
+            ])
+            ->add('day', IntegerType::class, [
+                'label' => 'Jour(s)',
+            ])
+            ->add('hour', IntegerType::class, [
+                'label' => 'Heure(s)',
+            ])
+            ->add('minute', IntegerType::class, [
+                'label' => 'Minute(s)',
+            ])
 
             ->add('tools', EntityType::class, [
                 'class' => Tool::class,
+                'label' => 'Outils',
                 'multiple' => true,
                 'choice_label' => 'name',
                 'expanded' => true,
@@ -53,7 +70,7 @@ class RecipeType extends AbstractType
 
             ->add('constitutes', CollectionType::class, [
                 'entry_type' => ConstituteType::class,
-                'label' => 'Ingredient',
+                'label' => 'Ingredients',
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -64,6 +81,7 @@ class RecipeType extends AbstractType
             ->add('recipeCategory', EntityType::class, [
                 'class' => RecipesCategory::class,
                 'choice_label' => 'name',
+                'label' => 'Catégorie de Recette',
             ])
         ;
     }

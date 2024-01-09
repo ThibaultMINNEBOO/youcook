@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RecipeController!{% endblock %}
+
+{% block body %}
+    <h1>Création de recette</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.difficulty) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.nbPeople) }}
+    {{ form_row(form.day) }}
+    {{ form_row(form.hour) }}
+    {{ form_row(form.minute) }}
+    {{ form_row(form.tools) }}
+    {{ form_row(form.constitutes) }}
+    {{ form_row(form.quantity) }}
+    {{ form_row(form.recipeCategory) }}
+    {{ form_end(form) }}
+{% endblock %}

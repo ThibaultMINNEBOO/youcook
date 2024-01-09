@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -56,15 +57,20 @@ class Recipe
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pictureName = null;
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private \DateTimeImmutable $updatedAt;
+
+    #[ORM\OneToOne(mappedBy: 'recipe', cascade: ['persist', 'remove'])]
+    private ?Constitute $constitute = null;
+    #[ORM\OneToMany(mappedBy: 'recipes', targetEntity: Constitute::class, cascade: ['persist'])]
+    private Collection $constitutes;
 
     public function __construct()
     {
         $this->tools = new ArrayCollection();
+        $this->constitutes = new ArrayCollection();
         $this->updatedAt = new \DateTimeImmutable();
         $this->steps = new ArrayCollection();
-        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -267,11 +273,41 @@ class Recipe
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): Recipe
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 
     public function getUpdatedAt(): \DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+    /**
+     * @return Collection<int, Constitute>
+     */
+    public function getConstitutes(): Collection
+    {
+        return $this->constitutes;
+    }
+
+    public function addConstitute(Constitute $constitute): static
+    {
+        if (!$this->constitutes->contains($constitute)) {
+            $this->constitutes->add($constitute);
+            $constitute->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConstitute(Constitute $constitute): static
+    {
+        if ($this->constitutes->removeElement($constitute)) {
+            // set the owning side to null (unless already changed)
+            if ($constitute->getRecipe() === $this) {
+                $constitute->setRecipe(null);
+            }
+        }
+
+        return $this;
     }
 }

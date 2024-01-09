@@ -2,7 +2,8 @@
 
 namespace App\Factory;
 
-use App\Entity\ConstituteFixtures;
+use App\DataFixtures\ConstituteFixtures;
+use App\Entity\Constitute;
 use App\Repository\ConstituteRepository;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
@@ -64,6 +65,6 @@ final class ConstituteFactory extends ModelFactory
 
     protected static function getClass(): string
     {
-        return ConstituteFixtures::class;
+        return Constitute::class;
     }
 }

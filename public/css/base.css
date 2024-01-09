@@ -1,17 +1,33 @@
-.cat-menu {
+body {
+    background-color: #e7e7e7;
+}
+.cat-menu,
+.cat-menu:hover {
     background-color: #c3df82;
     color: black;
     border-radius: 50px 0 0 50px;
     border: 1px solid black;
     align-items: center;
     padding: 2px 10px 2px 10px;
+    height: 38px;
 }
+
 .cat-menu:hover {
     background-color: #afc876;
     border-radius: 50px 0 0 50px;
     border: 1px solid black;
 }
-
+.cat-menu:focus,
+.cat-menu.show {
+    background-color: #c3df82;
+}
+.dropdown-menu {
+    background-color: #c3df82;
+}
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: #afc876;
+}
 .form-control {
     border-radius: 0 0 0 0;
     border-color: black;
@@ -33,12 +49,20 @@
 .navbar {
     background-color: #B0413E;
     box-shadow: 0 5px 10px rgba(0,0,0, 0.5);
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
 }
 .container-fluid {
     background-color: #f5f5f5;
 }
+
 @media screen and (min-width: 991px)
 {
+    .user-list {
+        text-align: right;
+        transform: translateX(-40%);
+    }
     .navbar-nav {
         display: flex;
     }

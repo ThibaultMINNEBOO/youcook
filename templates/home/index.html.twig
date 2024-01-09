@@ -5,25 +5,28 @@
 {% endblock %}
 
 {% block body %}
+    <body class="home_body">
     <div class="home_video">
         <video class="video" autoplay muted loop>
             <source src="{{ asset('video/home_video.mp4') }}" type="video/mp4">
         </video>
     </div>
-    <div class="home_body d-flex">
-        <div class="filter_list">
-            <h2>Filtres</h2>
-            <ul class="filter">
-                {% for category in categories %}
-                    <li>
-                        <span class="category">{{ category.name }}</span>
-                    </li>
+    <h2>Les recettes du moment</h2>
+    <div class="d-flex">
+        <div class="home_recipe d-flex">
+            <ul class="list_recipe row list-unstyled justify-content-around">
+                {% for recipe in recipes|slice(0, 5) %}
+                    <div class="recipe_item card col-md-3 custom-card">
+                        <li class="recipe card-body">
+                            <img class="img_recipe" src="{{ asset('img/recipe-default.png') }}"><br>
+                            <span class="card-title">{{ recipe.name | u.truncate(50, '...') }}</span><br>
+                            <span class="mark">{{ recipe.mark.mark }}</span>
+                        </li>
+                    </div>
                 {% endfor %}
             </ul>
         </div>
-        <div class="home_recipe">
-        blablabla
-        </div>
     </div>
+    </body>
 {% endblock %}
 

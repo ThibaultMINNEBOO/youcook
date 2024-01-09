@@ -33,9 +33,7 @@
                             <ul class="filter list-unstyled">
                                 {% for category in categories %}
                                     <li>
-                                        <span class="category">
-                                            <a class="dropdown-item" href="#">{{ category.name }}</a>
-                                        </span>
+                                        <a class="dropdown-item" href="#">{{ category.name }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -47,7 +45,24 @@
                     </button>
                 </form>
             </div>
-            <img src="{{ asset('img/default_user.png') }}" alt="#" height="75px">
+            <div class="dropdown">
+                <button class="user-menu btn d-flex" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{ asset('img/default_user.png') }}" alt="#" height="75px">
+                </button>
+                <div class="dropdown-menu">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a class="dropdown-item" href="#">Connexion</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Profil</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Création recette</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

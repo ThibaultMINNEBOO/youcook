@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Ingredient;
 use App\Entity\Recipe;
 use App\Entity\RecipesCategory;
 use App\Entity\Tool;
@@ -16,9 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Config\VichUploaderConfig;
 use Vich\UploaderBundle\Form\Type\VichImageType;
-use function Sodium\add;
 
 class RecipeType extends AbstractType
 {
@@ -30,6 +27,7 @@ class RecipeType extends AbstractType
             ])
             ->add('picture', VichImageType::class, [
                 'label' => 'Image',
+                'required' => false,
             ])
             ->add('difficulty', ChoiceType::class, [
                 'label' => 'Difficulté',
@@ -78,7 +76,7 @@ class RecipeType extends AbstractType
             ])
             ->add('steps', CollectionType::class, [
                 'entry_type' => StepType::class,
-                'label' => 'Ingredients',
+                'label' => 'Étapes',
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,

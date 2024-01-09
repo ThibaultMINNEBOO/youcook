@@ -40,7 +40,7 @@ class Recipe
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?RecipesCategory $recipeCategory = null;
 
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Step::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Step::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $steps;
 
     #[ORM\Column]

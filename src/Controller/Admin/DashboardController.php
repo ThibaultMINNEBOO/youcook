@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Allergen;
 use App\Entity\Ingredient;
 use App\Entity\IngredientCategory;
 use App\Entity\Recipe;
@@ -33,5 +34,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Recettes', 'fa fa-list', Recipe::class);
         yield MenuItem::linkToCrud('Ingrédients', 'fa fa-list', Ingredient::class);
         yield MenuItem::linkToCrud('Catégories d\'ingrédients', 'fa fa-list', IngredientCategory::class);
+        yield MenuItem::linkToCrud('Allergènes', 'fa fa-list', Allergen::class);
     }
 }

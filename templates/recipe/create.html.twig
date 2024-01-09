@@ -18,6 +18,11 @@
     {{ form_row(form.constitutes) }}
     <span></span>
     </div>
+    <div id="steps" data-prototype="{{ form_row(form.
+    steps.vars.prototype)|e('html_attr') }}">
+        {{ form_row(form.steps) }}
+        <span id="stepspan"></span>
+    </div>
     {{ form_row(form.tools) }}
     {{ form_row(form.picture) }}
     {{ form_row(form.description) }}
@@ -26,18 +31,34 @@
 {% block javascripts %}
     <script>
         let collection, addButtonIngredient, span;
+        let stepCollection, addButtonStep, stepSpan;
+
         window.onload = () => {
             collection = document.querySelector("#constitutes");
+            stepCollection = document.querySelector("#steps");
             span = collection.querySelector("span");
+            stepSpan = stepCollection.querySelector("#stepspan");
             addButtonIngredient = document.createElement("button");
+            addButtonStep = document.createElement("button");
+
             addButtonIngredient.className = "ajout-ingredient btn btn-primary";
             addButtonIngredient.innerText = "Ajouter un Ingrédient";
 
+            addButtonStep.className = "ajout-étape btn btn-primary";
+            addButtonStep.innerText = "Ajouter une étape";
+
             let newButton = span.append(addButtonIngredient);
+
+            let newButtonStep = stepSpan.append(addButtonStep);
 
             collection.dataset.index = collection.querySelectorAll("input").length;
             addButtonIngredient.addEventListener("click", function(){
                 addButton(collection, newButton);
+
+            })
+            stepCollection.dataset.index = stepCollection.querySelectorAll("input").length;
+            addButtonStep.addEventListener("click", function(){
+                addButton(stepCollection, newButtonStep);
 
             })
         }

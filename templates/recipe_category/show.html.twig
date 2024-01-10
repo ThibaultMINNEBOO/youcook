@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/recipeCategory_show.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h2 class="d-flex">
+        <div>Liste des {{ recipeCategory.name }}</div>
+    </h2>
+    <div class="home_recipe d-flex">
+        <ul class="list_recipe row list-unstyled justify-content-around">
+            {% for recipe in recipes %}
+                <div class="recipe_item card col-md-3 custom-card">
+                    <li class="recipe card-body">
+                        <img class="img_recipe" src="{{ asset('img/recipe-default.png') }}"><br>
+                        <span class="card-title">{{ recipe.name | u.truncate(50, '...') }}</span><br>
+                        <span class="mark">{{ recipe.mark.mark }}</span>
+                    </li>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+

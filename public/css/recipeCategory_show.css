@@ -1,0 +1,30 @@
+.navbar {
+    position: relative;
+}
+h2 {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.home_recipe {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    width: 100%;
+}
+
+.custom-card {
+    width: 350px;
+    height: 350px;
+    text-align: left;
+}
+
+.home_recipe .img_recipe {
+    width: 90%;
+    height: 80%;
+}
+
+.recipe_item {
+    border: none;
+    background-color: #e7e7e7;
+
+}

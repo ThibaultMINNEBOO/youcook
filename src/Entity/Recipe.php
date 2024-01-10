@@ -62,10 +62,14 @@ class Recipe
 
     #[ORM\OneToOne(mappedBy: 'recipe', cascade: ['persist', 'remove'])]
     private ?Constitute $constitute = null;
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Constitute::class)]
+    private Collection $constitutes;
 
     public function __construct()
     {
         $this->tools = new ArrayCollection();
+        $this->constitutes = new ArrayCollection();
+        $this->updatedAt = new \DateTimeImmutable();
         $this->steps = new ArrayCollection();
     }
 
@@ -277,25 +281,32 @@ class Recipe
     {
         return $this->updatedAt;
     }
-
-    public function getConstitute(): ?Constitute
+    /**
+     * @return Collection<int, Constitute>
+     */
+    public function getConstitutes(): Collection
     {
-        return $this->constitute;
+        return $this->constitutes;
     }
 
-    public function setConstitute(?Constitute $constitute): static
+    public function addConstitute(Constitute $constitute): static
     {
-        // unset the owning side of the relation if necessary
-        if (null === $constitute && null !== $this->constitute) {
-            $this->constitute->setRecipe(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if (null !== $constitute && $constitute->getRecipe() !== $this) {
+        if (!$this->constitutes->contains($constitute)) {
+            $this->constitutes->add($constitute);
             $constitute->setRecipe($this);
         }
 
-        $this->constitute = $constitute;
+        return $this;
+    }
+
+    public function removeConstitute(Constitute $constitute): static
+    {
+        if ($this->constitutes->removeElement($constitute)) {
+            // set the owning side to null (unless already changed)
+            if ($constitute->getRecipe() === $this) {
+                $constitute->setRecipe(null);
+            }
+        }
 
         return $this;
     }

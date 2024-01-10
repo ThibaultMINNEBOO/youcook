@@ -22,16 +22,14 @@ class Constitute
     #[ORM\Column(length: 4)]
     private ?string $measure = null;
 
-    #[ORM\OneToOne(inversedBy: 'constitute', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'constitutes')]
     private ?Recipe $recipe = null;
 
-    #[ORM\OneToMany(mappedBy: 'constitute', targetEntity: Ingredient::class)]
-    private Collection $ingredients;
+    #[ORM\ManyToOne(inversedBy: 'constitutes')]
+    private ?Ingredient $ingredient = null;
 
     public function __construct()
     {
-        $this->ingredients = new ArrayCollection();
     }
 
 
@@ -64,36 +62,6 @@ class Constitute
         return $this;
     }
 
-    /**
-     * @return Collection<int, Ingredient>
-     */
-    public function getIngredients(): Collection
-    {
-        return $this->ingredients;
-    }
-
-    public function addIngredient(Ingredient $ingredient): static
-    {
-        if (!$this->ingredients->contains($ingredient)) {
-            $this->ingredients->add($ingredient);
-            $ingredient->setConstitute($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIngredient(Ingredient $ingredient): static
-    {
-        if ($this->ingredients->removeElement($ingredient)) {
-            // set the owning side to null (unless already changed)
-            if ($ingredient->getConstitute() === $this) {
-                $ingredient->setConstitute(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getRecipe(): ?Recipe
     {
         return $this->recipe;
@@ -102,6 +70,18 @@ class Constitute
     public function setRecipe(?Recipe $recipe): static
     {
         $this->recipe = $recipe;
+
+        return $this;
+    }
+
+    public function getIngredient(): ?Ingredient
+    {
+        return $this->ingredient;
+    }
+
+    public function setIngredient(?Ingredient $ingredient): static
+    {
+        $this->ingredient = $ingredient;
 
         return $this;
     }

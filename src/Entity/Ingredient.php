@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\IngredientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
@@ -23,9 +25,14 @@ class Ingredient
     private ?IngredientCategory $category = null;
     private ?Allergen $allergen = null;
 
-    #[ORM\ManyToOne(inversedBy: 'ingredients')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Constitute $constitute = null;
+    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: Constitute::class)]
+    private Collection $constitutes;
+
+    public function __construct()
+    {
+        $this->constitutes = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -80,15 +87,34 @@ class Ingredient
         return $this;
     }
 
-    public function getConstitute(): ?Constitute
+    /**
+     * @return Collection<int, Constitute>
+     */
+    public function getConstitutes(): Collection
     {
-        return $this->constitute;
+        return $this->constitutes;
     }
 
-    public function setConstitute(?Constitute $constitute): static
+    public function addConstitute(Constitute $constitute): static
     {
-        $this->constitute = $constitute;
+        if (!$this->constitutes->contains($constitute)) {
+            $this->constitutes->add($constitute);
+            $constitute->setIngredient($this);
+        }
 
         return $this;
     }
+
+    public function removeConstitute(Constitute $constitute): static
+    {
+        if ($this->constitutes->removeElement($constitute)) {
+            // set the owning side to null (unless already changed)
+            if ($constitute->getIngredient() === $this) {
+                $constitute->setIngredient(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

@@ -36,9 +36,9 @@ class RecipeType extends AbstractType
                 'label' => 'Difficulté',
                 'empty_data' => '',
                 'choices' => [
-                    'FACILE' => true,
-                    'MOYEN' => true,
-                    'DIFFICILE' => true,
+                    'FACILE' => 'FACILE',
+                    'MOYEN' => 'MOYEN',
+                    'DIFFICILE' => 'DIFFICILE',
                 ],
             ])
 

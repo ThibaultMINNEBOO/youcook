@@ -17,7 +17,7 @@ class UserController extends AbstractController
 {
     #[Route('/profile', name: 'app_user_profile')]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
-    public function index(UserRepository $userRepository,RecipesCategoryRepository $recipesCategoryRepository, Request $request, EntityManagerInterface $entityManager): Response
+    public function index(UserRepository $userRepository, Request $request, EntityManagerInterface $entityManager, RecipesCategoryRepository $recipesCategoryRepository): Response
     {
         $user = $userRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
 
@@ -31,6 +31,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/index.html.twig', [
+            'categories' => $recipesCategoryRepository->findAll(),
             'form' => $form->createView(),
             'categories' => $recipesCategoryRepository->findAll(),
         ]);

@@ -1,0 +1,39 @@
+.navbar {
+    position: relative;
+}
+.title {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+h3 {
+    color : #2ca61e;
+    border-radius: 50px;
+    border: 2px solid #2ca61e;
+    padding: 10px;
+    display: inline-block;
+}
+.formLogin{
+    display:flex;
+    width: 50%;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    margin: auto;
+    text-align: center;
+}
+.formLogin label,
+.formLogin input {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.formLogin label {
+    text-align: left;
+}
+.formLogin button {
+    width: auto;
+    margin-top: 10px;
+}
+.login {
+    margin-bottom: 5px;
+}

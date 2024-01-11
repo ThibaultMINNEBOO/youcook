@@ -32,7 +32,7 @@ class RecipeController extends AbstractController
         return $this->render('recipe/show.html.twig', ['recipe' => $recipe, 'categories' => $recipesCategoryRepository->findAll()]);
     }
 
-    #[Route('/recipe/create', name: 'app_recipe_create', requirements: ['id' => '\d+'])]
+    #[Route('/recipe/create', name: 'app_recipe_create')]
     #[IsGranted('IS_AUTHENTICATED')]
     public function create(Request $request, RecipesCategoryRepository $recipesCategoryRepository, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
@@ -43,6 +43,8 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // $user = $userRepository->findBy(['email' => $this->getUser()->getUserIdentifier()]);
+            $recipe->setUser($this->getUser());
             $entityManager->persist($recipe);
             $entityManager->flush();
 

@@ -63,6 +63,10 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipes', targetEntity: Constitute::class, cascade: ['persist'])]
     private Collection $constitutes;
 
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->tools = new ArrayCollection();
@@ -306,6 +310,18 @@ class Recipe
                 $constitute->setRecipe(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

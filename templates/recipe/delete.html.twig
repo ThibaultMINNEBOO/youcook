@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer la recette{% endblock %}
+{% block stylesheets %}
+    <style>
+        .deleteForm{
+            display:flex;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 15%;
+        }
+        .navbar{
+             position: relative;
+         }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="deleteForm">
+        <h1 style="text-align: center; margin-bottom: 3%">Suppression de la recette <span style="color: rgba(255,0,0,0.6)">{{ recipe.name }}</span></h1>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+        <a href="{{ path('app_recipe') }}">Retour à la liste des recettes</a>
+    </div>
+{% endblock %}

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Recipe;
+use App\Form\DeleteRecipeType;
 use App\Form\RecipeType;
+use App\Repository\RecipeRepository;
 use App\Repository\RecipesCategoryRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use App\Repository\RecipeRepository;
 
 class RecipeController extends AbstractController
 {
@@ -31,7 +32,7 @@ class RecipeController extends AbstractController
         return $this->render('recipe/show.html.twig', ['recipe' => $recipe, 'categories' => $recipesCategoryRepository->findAll()]);
     }
 
-    #[Route('/recipe/create', name: 'app_recipe_create', requirements: ['id' => '\d+'])]
+    #[Route('/recipe/create', name: 'app_recipe_create')]
     #[IsGranted('IS_AUTHENTICATED')]
     public function create(Request $request, RecipesCategoryRepository $recipesCategoryRepository, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
@@ -42,52 +43,33 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /**$finalRecipe = new Recipe();
-            foreach ($recipe->getConstitutes() as $ingredient) {
-                $constitute = new Constitute();
-                $constitute->setIngredient($ingredient);
-                $constitute->setRecipe($recipe->getId());
-                $constitute->setQuantity(1);
-                $constitute->setMeasure('kg');
-                $finalRecipe->addConstitute($constitute);
-            }
-            $finalRecipe->setRecipeCategory($recipe->getRecipeCategory());
-            $finalRecipe->setDescription($recipe->getDescription());
-            $finalRecipe->setMark($recipe->getMark());
-            $finalRecipe->setName($recipe->getName());
-            $finalRecipe->setDay($recipe->getDay());
-            $finalRecipe->setHour($recipe->getHour());
-            $finalRecipe->setMinute($recipe->getMinute());
-
-            $finalRecipe->setDifficulty($recipe->getDifficulty());
-            $finalRecipe->setNbPeople($recipe->getNbPeople());
-            $entityManager->persist($constitute);
-            $entityManager->persist($finalRecipe);**/
+            $recipe->setUser($this->getUser());
             $entityManager->persist($recipe);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_recipe_create');
         }
 
-        /*if ($form->isSubmitted() && $form->isValid()) {
-            $ingredients = $request->request->get('constitutes');
-
-            $finalRecipe = $recipe;
-            foreach ($recipe->getConstitutes() as $ingredient) {
-                $constitute = new Constitute();
-                $constitute->setIngredient($ingredient);
-                $constitute->setRecipe($recipe->getId());
-                $constitute->setQuantity(1);
-                $constitute->setMeasure('kg');
-                $finalRecipe->addConstitute($constitute);
-            }
-
-            $entityManager->persist($finalRecipe);
-            $entityManager->flush();
-
-            // return $this->redirectToRoute("");
-        }*/
-
         return $this->render('recipe/create.html.twig', ['form' => $form->createView(), 'categories' => $recipesCategoryRepository->findAll()]);
+    }
+
+    #[Route('/recipe/{id}/delete', name: 'app_recipe_delete', requirements: ['id' => '\d+'])]
+    public function delete(Request $request, RecipesCategoryRepository $recipesCategoryRepository, Recipe $recipe, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(DeleteRecipeType::class, $recipe);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->remove($recipe);
+            $entityManager->flush();
+            $this->addFlash('success', 'La recette a été supprimée avec succès.');
+
+            return $this->redirectToRoute('app_recipe');
+        }
+
+        return $this->render('recipe/delete.html.twig', [
+            'recipe' => $recipe,
+            'form' => $form->createView(),
+            'categories' => $recipesCategoryRepository->findAll(),
+        ]);
     }
 }

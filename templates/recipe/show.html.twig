@@ -49,12 +49,11 @@
             <div>
                 <h4 style="text-align: left">Ingrédients :</h4>
                 <div class="container d-flex flex-wrap">
-                    {% for ingredient in recipe.constitute.ingredients %}
+                    {% for constitute in recipe.constitutes %}
                         <div class="col-md-4" style="min-width: fit-content; max-width: fit-content">
                             <div class="card d-flex flex-row justify-content-left align-items-center" style="margin: 10px; align-items: flex-end">
                                 <span class="material-symbols-outlined " style="height: 40px; width: 40px; margin: 5px">grocery</span>
-                                <p>{{ ingredient.name }}</p>
-                                <p>{{ recipe.constitute.quantity }}</p>
+                                <p>{{ constitute.ingredient.name }} {{ constitute.quantity }}{{ constitute.measure }}</p>
                             </div>
                         </div>
                     {% endfor %}

@@ -84,6 +84,11 @@
             </div>
         </div>
     </div>
+    <div class="text-center">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') and recipe.user.id == app.user.id %}
+        <button class="btn btn-primary" style="justify-content: center"><a style="color: white" href="{{ path('app_recipe_delete', {'id': recipe.id}) }}">Supprimer la recette</a></button>
+    {% endif %}
+    </div>
 {% endblock %}
 
 {% block title %}{{ recipe.name }}{% endblock %}

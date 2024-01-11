@@ -55,7 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToMany(targetEntity: Allergen::class, inversedBy: 'users')]
     private Collection $allergens;
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private \DateTimeImmutable $updatedAt;
 
     public function __construct()

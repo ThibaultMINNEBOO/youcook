@@ -40,7 +40,7 @@ class Recipe
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?RecipesCategory $recipeCategory = null;
 
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Step::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Step::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $steps;
 
     #[ORM\Column]
@@ -60,11 +60,17 @@ class Recipe
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private \DateTimeImmutable $updatedAt;
 
+    #[ORM\OneToOne(mappedBy: 'recipe', cascade: ['persist', 'remove'])]
+    private ?Constitute $constitute = null;
+    #[ORM\OneToMany(mappedBy: 'recipes', targetEntity: Constitute::class, cascade: ['persist'])]
+    private Collection $constitutes;
+
     public function __construct()
     {
         $this->tools = new ArrayCollection();
-        $this->steps = new ArrayCollection();
+        $this->constitutes = new ArrayCollection();
         $this->updatedAt = new \DateTimeImmutable();
+        $this->steps = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -267,11 +273,41 @@ class Recipe
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): Recipe
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 
     public function getUpdatedAt(): \DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+    /**
+     * @return Collection<int, Constitute>
+     */
+    public function getConstitutes(): Collection
+    {
+        return $this->constitutes;
+    }
+
+    public function addConstitute(Constitute $constitute): static
+    {
+        if (!$this->constitutes->contains($constitute)) {
+            $this->constitutes->add($constitute);
+            $constitute->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConstitute(Constitute $constitute): static
+    {
+        if ($this->constitutes->removeElement($constitute)) {
+            // set the owning side to null (unless already changed)
+            if ($constitute->getRecipe() === $this) {
+                $constitute->setRecipe(null);
+            }
+        }
+
+        return $this;
     }
 }

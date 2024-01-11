@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\IngredientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
@@ -22,6 +24,15 @@ class Ingredient
     #[ORM\ManyToOne(inversedBy: 'ingredients')]
     private ?IngredientCategory $category = null;
     private ?Allergen $allergen = null;
+
+    #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: Constitute::class)]
+    private Collection $constitutes;
+
+    public function __construct()
+    {
+        $this->constitutes = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -75,4 +86,35 @@ class Ingredient
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Constitute>
+     */
+    public function getConstitutes(): Collection
+    {
+        return $this->constitutes;
+    }
+
+    public function addConstitute(Constitute $constitute): static
+    {
+        if (!$this->constitutes->contains($constitute)) {
+            $this->constitutes->add($constitute);
+            $constitute->setIngredient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConstitute(Constitute $constitute): static
+    {
+        if ($this->constitutes->removeElement($constitute)) {
+            // set the owning side to null (unless already changed)
+            if ($constitute->getIngredient() === $this) {
+                $constitute->setIngredient(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

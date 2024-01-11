@@ -16,7 +16,6 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
 
         foreach ($ingredients as $ingredient) {
             IngredientFactory::createOne(['name' => $ingredient['name']]);
-            RecipeFactory::createOne(['recipeCategory' => 1]);
         }
     }
 

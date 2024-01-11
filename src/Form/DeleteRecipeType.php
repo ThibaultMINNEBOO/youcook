@@ -16,7 +16,21 @@ class DeleteRecipeType extends AbstractType
             ->add('confirm_delete', SubmitType::class, [
                 'label' => 'Confirmer la suppression',
                 'attr' => ['class' => 'btn btn-danger'],
-            ]);
+            ])
+            ->add('name')
+            ->add('difficulty')
+            ->add('description')
+            ->add('nbPeople')
+            ->add('day')
+            ->add('hour')
+            ->add('minute')
+            ->add('pictureName')
+            ->add('updatedAt')
+            ->add('mark')
+            ->add('tools')
+            ->add('recipeCategory')
+            ->add('constitute')
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

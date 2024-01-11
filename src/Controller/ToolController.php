@@ -24,6 +24,7 @@ class ToolController extends AbstractController
             'tools' => $tools,
         ]);
     }
+
     #[Route('/tool/{id}', name: 'app_tool_show', requirements: ['id' => '\d+'])]
     public function show(Tool $tool): Response
     {
@@ -40,7 +41,6 @@ class ToolController extends AbstractController
             'choice_label' => 'name',
             'data' => $tool->getToolCategory(),
         ]);
-
 
         $formTool->handleRequest($request);
         if ($formTool->isSubmitted() && $formTool->isValid()) {

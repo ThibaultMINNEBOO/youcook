@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ConstituteRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,7 +17,7 @@ class Constitute
     #[ORM\Column(type: Types::FLOAT, precision: 6, scale: 2)]
     private ?float $quantity = null;
 
-    #[ORM\Column(length: 4)]
+    #[ORM\Column(length: 10)]
     private ?string $measure = null;
 
     #[ORM\ManyToOne(inversedBy: 'constitutes')]
@@ -31,7 +29,6 @@ class Constitute
     public function __construct()
     {
     }
-
 
     public function getId(): ?int
     {

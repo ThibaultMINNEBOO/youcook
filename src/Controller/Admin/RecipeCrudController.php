@@ -32,9 +32,9 @@ class RecipeCrudController extends AbstractCrudController
             NumberField::new('hour', 'Heure')->onlyOnForms()->setColumns(1),
             NumberField::new('minute', 'Minute')->onlyOnForms()->setColumns(1),
             ChoiceField::new('difficulty')->setChoices([
-                'Facile' => 'Facile',
-                'Moyen' => 'Moyen',
-                'Difficile' => 'Difficile',
+                'FACILE' => 'FACILE',
+                'MOYEN' => 'MOYEN',
+                'DIFFICILE' => 'DIFFICILE',
             ])->onlyOnForms()->setColumns(10),
             NumberField::new('nbPeople')->onlyOnForms(),
             TextField::new('difficulty')->hideOnForm(),

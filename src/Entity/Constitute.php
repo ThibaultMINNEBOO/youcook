@@ -17,7 +17,7 @@ class Constitute
     #[ORM\Column(type: Types::FLOAT, precision: 6, scale: 2)]
     private ?float $quantity = null;
 
-    #[ORM\Column(length: 4)]
+    #[ORM\Column(length: 10)]
     private ?string $measure = null;
 
     #[ORM\ManyToOne(inversedBy: 'constitutes')]

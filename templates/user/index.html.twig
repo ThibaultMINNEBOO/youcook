@@ -3,24 +3,26 @@
 {% block title %}{{ app.user.firstname }} | Profile{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/user_index.css') }}">
 {% endblock %}
 
 {% block body %}
+    <h1 class="form__title">Mon profil</h1>
+    <div class="form-user">
+        <div class="container-lg">
+            {{ form_start(form) }}
 
-    <div class="container-lg">
-        {{ form_start(form) }}
 
-        <h1 class="form__title">Mon profil</h1>
 
-        {{ form_row(form.firstname, {'label': 'Prénom'}) }}
-        {{ form_row(form.lastname, {'label': 'Nom'}) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.biography, {'label': 'Biographie'}) }}
-        {{ form_row(form.allergens, {'label': 'Allergies'}) }}
+            {{ form_row(form.firstname, {'label': 'Prénom'}) }}
+            {{ form_row(form.lastname, {'label': 'Nom'}) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.biography, {'label': 'Biographie'}) }}
+            {{ form_row(form.allergens, {'label': 'Allergies'}) }}
 
-        <button type="submit" class="form__button">Mettre à jour mon profil</button>
+            <button type="submit" class="form__button btn btn-primary">Mettre à jour</button>
 
-        {{ form_end(form) }}
+            {{ form_end(form) }}
+        </div>
     </div>
 {% endblock %}

@@ -35,52 +35,19 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /**$finalRecipe = new Recipe();
-            foreach ($recipe->getConstitutes() as $ingredient) {
-                $constitute = new Constitute();
-                $constitute->setIngredient($ingredient);
-                $constitute->setRecipe($recipe->getId());
-                $constitute->setQuantity(1);
-                $constitute->setMeasure('kg');
-                $finalRecipe->addConstitute($constitute);
-            }
-            $finalRecipe->setRecipeCategory($recipe->getRecipeCategory());
-            $finalRecipe->setDescription($recipe->getDescription());
-            $finalRecipe->setMark($recipe->getMark());
-            $finalRecipe->setName($recipe->getName());
-            $finalRecipe->setDay($recipe->getDay());
-            $finalRecipe->setHour($recipe->getHour());
-            $finalRecipe->setMinute($recipe->getMinute());
-
-            $finalRecipe->setDifficulty($recipe->getDifficulty());
-            $finalRecipe->setNbPeople($recipe->getNbPeople());
-            $entityManager->persist($constitute);
-            $entityManager->persist($finalRecipe);**/
             $entityManager->persist($recipe);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_recipe_create');
         }
 
-        /*if ($form->isSubmitted() && $form->isValid()) {
-            $ingredients = $request->request->get('constitutes');
-
-            $finalRecipe = $recipe;
-            foreach ($recipe->getConstitutes() as $ingredient) {
-                $constitute = new Constitute();
-                $constitute->setIngredient($ingredient);
-                $constitute->setRecipe($recipe->getId());
-                $constitute->setQuantity(1);
-                $constitute->setMeasure('kg');
-                $finalRecipe->addConstitute($constitute);
-            }
-
-            $entityManager->persist($finalRecipe);
-            $entityManager->flush();
-
-            // return $this->redirectToRoute("");
-        }*/
-
         return $this->render('recipe/create.html.twig', ['form' => $form->createView(), 'categories' => $recipesCategoryRepository->findAll()]);
     }
+    #[Route('/recipe/{id}/delete', name: 'app_recipe_delete', requirements: ['id' => '\d+'])]
+    public function delete(Recipe $recipe): Response
+    {
+        return $this->render('recipe/delete.html.twig', ['recipe' => $recipe]);
+    }
+
+
 }

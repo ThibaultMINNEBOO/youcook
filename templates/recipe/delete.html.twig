@@ -7,7 +7,7 @@
             display:flex;
             align-items: center;
             flex-direction: column;
-            margin-top: 10%;
+            margin-top: 15%;
         }
         .navbar{
              position: relative;
@@ -16,7 +16,6 @@
 {% endblock %}
 
 {% block body %}
-<h1>Suppression de la recette</h1>
     <div class="deleteForm">
         <h1 style="text-align: center; margin-bottom: 3%">Suppression de la recette <span style="color: rgba(255,0,0,0.6)">{{ recipe.name }}</span></h1>
         {{ form_start(form) }}

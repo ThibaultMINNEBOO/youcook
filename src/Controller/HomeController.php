@@ -10,8 +10,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    #[Route('/home', name: 'app_home')]
-    public function index(RecipesCategoryRepository $recipesCategoryRepository, RecipeRepository $recipeRepository): Response
+    #[Route('/', name: 'app_home')]
+    public function index(): Response
+    {
+        return $this->redirectToRoute('app_home_page');
+    }
+
+    #[Route('/home', name: 'app_home_page')]
+    public function home(RecipesCategoryRepository $recipesCategoryRepository, RecipeRepository $recipeRepository): Response
     {
         return $this->render('home/index.html.twig', [
             'categories' => $recipesCategoryRepository->findAll(),

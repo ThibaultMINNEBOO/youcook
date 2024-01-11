@@ -44,7 +44,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         ]);
 
         RecipeFactory::createOne([
-            'name' => 'Pain perdu',
+            'name' => 'Poulet rôti',
             'description' => "La recette du poulet rôti au four est un grand classique de la cuisine. Cette recette traditionnelle est un plat convivial et apprécié de tous. C'est une option savoureuse et relativement simple pour un délicieux repas en famille ou entre amis",
             'tools' => $tools,
             'steps' => $steps,

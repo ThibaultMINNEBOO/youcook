@@ -20,7 +20,7 @@
 
     <h1>.</h1>
     <div class="deleteForm">
-        <h1 style="text-align: center; margin-bottom: 3%">Suppression de la recette {{ recipe.name }}</h1>
+        <h1 style="text-align: center; margin-bottom: 3%">Suppression de la recette <span style="color: rgba(255,0,0,0.6)">{{ recipe.name }}</span></h1>
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}

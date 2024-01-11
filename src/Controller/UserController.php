@@ -31,6 +31,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/index.html.twig', [
+            'categories' => $recipesCategoryRepository->findAll(),
             'form' => $form->createView(),
             'categories' => $recipesCategoryRepository->findAll(),
             'users' => $userRepository->findAll(),

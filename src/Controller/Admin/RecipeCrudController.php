@@ -4,9 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\Difficulty;
 use App\Entity\Recipe;
+use App\Form\ConstituteType;
+use App\Form\StepType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
@@ -49,8 +52,30 @@ class RecipeCrudController extends AbstractCrudController
                     },
                 ])
                 ->formatValue(function ($value, $entity) {
-                    return $entity->getRecipeCategory()->getName();
+                    return $entity->getRecipeCategory()?->getName();
                 }),
-        ];
+            CollectionField::new('constitutes')->onlyOnForms()
+                ->setEntryType(ConstituteType::class)
+                ->setFormTypeOptions([
+                    'by_reference' => false,
+                ])->setEmptyData('')
+                ->setLabel('Ingrédients')
+                ->allowAdd()
+                ->allowDelete()
+                ->setEntryIsComplex(),
+            CollectionField::new('steps')->onlyOnForms()
+                ->setEntryType(StepType::class)
+                ->allowAdd()
+                ->allowDelete()
+                ->setFormTypeOptions([
+                    'by_reference' => false,
+                ])->setEmptyData(''),
+            AssociationField::new('tools', 'Outils')
+                ->onlyOnForms()
+                ->setFormTypeOptions([
+                    'multiple' => true,
+                    'choice_label' => 'name',
+                ]),
+            ];
     }
 }

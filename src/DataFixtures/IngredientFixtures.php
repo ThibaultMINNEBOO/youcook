@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Factory\IngredientFactory;
 use App\Factory\RecipeFactory;
+use App\Factory\RecipesCategoryFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;

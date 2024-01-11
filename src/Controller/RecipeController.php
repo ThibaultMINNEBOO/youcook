@@ -17,9 +17,11 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class RecipeController extends AbstractController
 {
     #[Route('/recipe', name: 'app_recipe')]
-    public function index(): Response
+    public function index(RecipesCategoryRepository $recipesCategoryRepository): Response
     {
-        return $this->render('recipe/index.html.twig');
+        return $this->render('recipe/index.html.twig', [
+            'categories' => $recipesCategoryRepository,
+        ]);
     }
 
     #[Route('/recipe/create', name: 'app_recipe_create', requirements: ['id' => '\d+'])]

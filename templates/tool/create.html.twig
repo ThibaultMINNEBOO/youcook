@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Ingrédients{% endblock %}
+
+{% block body %}
+<h1>Création d'un outil</h1>
+<div class="container-lg">
+    {{ form_start(form) }}
+    {{ form_row(form.name, {'label': 'Nom de l\'outil'}) }}
+    {{ form_row(form.toolCategory, {'label': 'Catégorie de l\'outil'}) }}
+    <input type="submit" class="w-100 p-3 btn btn-primary" value="Créer l'outil">
+    {{ form_end(form) }}
+</div>
+{% endblock %}

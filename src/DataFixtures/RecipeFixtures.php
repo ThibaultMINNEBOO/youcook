@@ -6,6 +6,7 @@ use App\Factory\RecipeFactory;
 use App\Factory\RecipesCategoryFactory;
 use App\Factory\StepFactory;
 use App\Factory\ToolFactory;
+use App\Factory\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -60,6 +61,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
                 'description' => $recipe['description'] ?? '',
                 'tools' => $tools,
                 'steps' => StepFactory::createMany(5, ['description' => 'description d\'étape de test']),
+                'user' => UserFactory::random(),
             ]);
         }
     }

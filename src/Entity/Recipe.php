@@ -279,6 +279,7 @@ class Recipe
     {
         return $this->updatedAt;
     }
+
     /**
      * @return Collection<int, Constitute>
      */

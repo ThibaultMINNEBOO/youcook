@@ -241,6 +241,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): User
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 

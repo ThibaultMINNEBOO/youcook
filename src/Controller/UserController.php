@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ProfileType;
+use App\Repository\RecipesCategoryRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ class UserController extends AbstractController
 {
     #[Route('/profile', name: 'app_user_profile')]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
-    public function index(UserRepository $userRepository, Request $request, EntityManagerInterface $entityManager): Response
+    public function index(UserRepository $userRepository,RecipesCategoryRepository $recipesCategoryRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $userRepository->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
 
@@ -31,6 +32,7 @@ class UserController extends AbstractController
 
         return $this->render('user/index.html.twig', [
             'form' => $form->createView(),
+            'categories' => $recipesCategoryRepository->findAll(),
         ]);
     }
 

@@ -57,7 +57,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         foreach ($recipes as $recipe) {
             RecipeFactory::createOne([
                 'name' => $recipe['name'],
-                'recipeCategory' => RecipesCategoryFactory::new(),
+                'recipeCategory' => RecipesCategoryFactory::random(),
                 'description' => $recipe['description'] ?? '',
                 'tools' => $tools,
                 'steps' => StepFactory::createMany(5, ['description' => 'description d\'étape de test']),

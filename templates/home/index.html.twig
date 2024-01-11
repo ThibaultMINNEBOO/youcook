@@ -16,12 +16,17 @@
         <div class="home_recipe d-flex">
             <ul class="list_recipe row list-unstyled justify-content-around">
                 {% for recipe in recipes|slice(0, 5) %}
-                    <div class="recipe_item card col-md-3 custom-card">
-                        <li class="recipe card-body">
-                            <img class="img_recipe" src="{{ asset('img/recipe-default.png') }}"><br>
-                            <span class="card-title">{{ recipe.name | u.truncate(50, '...') }}</span><br>
-                            <span class="mark">{{ recipe.mark.mark }}</span>
-                        </li>
+                    <div class="col-md-4">
+                        <div class="card" style="width: 18rem; margin: 10px;">
+                            <a href="{{ path('app_recipe_show', {id: recipe.id}) }}">
+                                <img class="card-img-top" src="{{ asset('img/recipe-default.png') }}" alt="{{ recipe.name }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ recipe.name | u.truncate(50, '...') }}</h5>
+                                    <p>{{ recipe.user.firstname }} {{ recipe.user.lastname }}</p>
+                                    <span class="mark">{{ recipe.mark.mark }}</span>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 {% endfor %}
             </ul>

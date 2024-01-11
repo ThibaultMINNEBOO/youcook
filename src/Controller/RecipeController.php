@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Recipe;
+use App\Form\DeleteRecipeType;
 use App\Form\RecipeType;
 use App\Repository\RecipesCategoryRepository;
 use App\Repository\UserRepository;
@@ -51,9 +52,22 @@ class RecipeController extends AbstractController
         return $this->render('recipe/create.html.twig', ['form' => $form->createView(), 'categories' => $recipesCategoryRepository->findAll()]);
     }
     #[Route('/recipe/{id}/delete', name: 'app_recipe_delete', requirements: ['id' => '\d+'])]
-    public function delete(Recipe $recipe): Response
+    public function delete(Request $request, RecipesCategoryRepository $recipesCategoryRepository, Recipe $recipe, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('recipe/delete.html.twig', ['recipe' => $recipe]);
+        $form = $this->createForm(DeleteRecipeType::class, $recipe);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->remove($recipe);
+            $entityManager->flush();
+            $this->addFlash('success', 'La recette a été supprimée avec succès.');
+            return $this->redirectToRoute('app_recipe');
+        }
+        return $this->render('recipe/delete.html.twig', [
+            'recipe' => $recipe,
+            'form' => $form->createView(),
+            'categories' => $recipesCategoryRepository->findAll()
+        ]);
+
     }
 
 

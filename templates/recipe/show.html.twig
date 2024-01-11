@@ -28,7 +28,7 @@
             </div>
             <div class="descriptionRecipe">
                 <h4 style="text-align: left">Description :</h4>
-                <p style="text-align: left; text-indent: 40px">{{ recipe.description ?? 'Aucune description' }}</p>
+                <p style="text-align: left; text-indent: 40px; max-width: fit-content;">{{ recipe.description == '' ? 'Aucune description' : recipe.description }}</p>
             </div>
             <div class="Ustensiles">
                 <h4 style="text-align: left">Ustensiles utilisés :</h4>
@@ -38,8 +38,8 @@
                     {% endif %}
                     {% for tool in recipe.tools %}
                         <div class="col-md-4" style="min-width: fit-content; max-width: fit-content">
-                            <div class="card d-flex flex-row justify-content-left" style="margin: 10px; align-items: flex-end">
-                                <img class="card-img-top" src="{{ asset('img/tool_icon.png') }}" alt="{{ recipe.name }}" style="height: 40px; width: 40px; margin: 5px">
+                            <div class="card d-flex flex-row justify-content-left" style="margin: 5px; align-items: flex-end; padding: 5px;">
+                                <img class="card-img-top" src="{{ asset('img/tool_icon.png') }}" alt="{{ recipe.name }}" style="height: 40px; width: 40px; margin: 5px;">
                                 <p>{{ tool.name }}</p>
                             </div>
                         </div>
@@ -51,9 +51,9 @@
                 <div class="container d-flex flex-wrap">
                     {% for constitute in recipe.constitutes %}
                         <div class="col-md-4" style="min-width: fit-content; max-width: fit-content">
-                            <div class="card d-flex flex-row justify-content-left align-items-center" style="margin: 10px; align-items: flex-end">
+                            <div class="card d-flex flex-row justify-content-left align-items-center" style="margin: 10px; align-items: flex-end; padding: 5px;">
                                 <span class="material-symbols-outlined " style="height: 40px; width: 40px; margin: 5px">grocery</span>
-                                <p>{{ constitute.ingredient.name }} {{ constitute.quantity }}{{ constitute.measure }}</p>
+                                <p>{{ constitute.ingredient.name }} {{ constitute.quantity }} {{ constitute.measure }}</p>
                             </div>
                         </div>
                     {% endfor %}

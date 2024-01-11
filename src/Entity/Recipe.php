@@ -62,7 +62,7 @@ class Recipe
 
     #[ORM\OneToOne(mappedBy: 'recipe', cascade: ['persist', 'remove'])]
     private ?Constitute $constitute = null;
-    #[ORM\OneToMany(mappedBy: 'recipes', targetEntity: Constitute::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Constitute::class, cascade: ['persist'])]
     private Collection $constitutes;
 
     public function __construct()

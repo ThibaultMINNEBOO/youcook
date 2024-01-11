@@ -6,7 +6,7 @@ namespace App\Entity;
 
 enum Difficulty
 {
-    case EASY;
-    case MEDIUM;
-    case HARD;
+    case FACILE;
+    case MOYEN;
+    case DIFFICILE;
 }

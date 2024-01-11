@@ -20,15 +20,15 @@ class RecipeController extends AbstractController
     public function index(RecipesCategoryRepository $recipesCategoryRepository, RecipeRepository $recipeRepository): Response
     {
         return $this->render('recipe/index.html.twig', [
-            'categories' => $recipesCategoryRepository,
+            'categories' => $recipesCategoryRepository->findAll(),
             'recipes' => $recipeRepository->findAll(),
         ]);
     }
 
     #[Route('/recipe/{id}', name: 'app_recipe_show', requirements: ['id' => '\d+'])]
-    public function show(Recipe $recipe): Response
+    public function show(RecipesCategoryRepository $recipesCategoryRepository, Recipe $recipe): Response
     {
-        return $this->render('recipe/show.html.twig', ['recipe' => $recipe]);
+        return $this->render('recipe/show.html.twig', ['recipe' => $recipe, 'categories' => $recipesCategoryRepository->findAll()]);
     }
 
     #[Route('/recipe/create', name: 'app_recipe_create', requirements: ['id' => '\d+'])]

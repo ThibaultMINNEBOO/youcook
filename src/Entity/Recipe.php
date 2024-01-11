@@ -60,8 +60,6 @@ class Recipe
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private \DateTimeImmutable $updatedAt;
 
-    #[ORM\OneToOne(mappedBy: 'recipe', cascade: ['persist', 'remove'])]
-    private ?Constitute $constitute = null;
     #[ORM\OneToMany(mappedBy: 'recipes', targetEntity: Constitute::class, cascade: ['persist'])]
     private Collection $constitutes;
 

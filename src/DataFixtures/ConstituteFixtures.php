@@ -24,6 +24,7 @@ class ConstituteFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             RecipeFixtures::class,
+            IngredientFixtures::class,
         ];
     }
 }

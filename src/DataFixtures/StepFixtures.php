@@ -4,20 +4,12 @@ namespace App\DataFixtures;
 
 use App\Factory\StepFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class StepFixtures extends Fixture implements DependentFixtureInterface
+class StepFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
         StepFactory::createMany(10);
-    }
-
-    public function getDependencies(): array
-    {
-        return [
-            RecipeFixtures::class,
-        ];
     }
 }

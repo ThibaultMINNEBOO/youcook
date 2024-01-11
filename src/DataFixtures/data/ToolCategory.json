@@ -1,34 +1,18 @@
 [
   {
     "name": "Ustensiles",
-    "description": "Couteau de chef, Cuillère à mélanger, Spatule, Fouet, Presse-ail, Zesteur, Épluche-légumes, Ciseaux de cuisine"
+    "description": "Couteau, Cuillère, Spatule, Fouet, Économe, Épluche-légumes, Ciseaux de cuisine"
   },
   {
     "name": "Récipients",
-    "description": "Casserole, Poêle, Plat de cuisson, Bol de mélange, Passoire, Planche à découper, Tasse à mesurer"
+    "description": "Casserole, Poêle, Bol, Passoire, Assiètte..."
   },
   {
-    "name": "Outils de découpe",
-    "description": "Couteau de chef, Couteau d’office, Ciseaux de cuisine, Planche à découper, Mandoline, Fusil (outil), Hachoir à viande"
+    "name": "Électroménager",
+    "description": "Mixeur, robot, four..."
   },
   {
-    "name": "Outils de cuisson",
-    "description": "Poêle à frire, Casserole, Plat à four, Plat à rôtir, Plaque de cuisson, Cuillère à remuer, Cuillère à fente"
-  },
-  {
-    "name": "Outils de préparation des aliments",
-    "description": "Couteau de chef, Couteau d’office, Épluche-légumes, Râpe, Balance de cuisine, Bol doseur, Cuillère à mesurer, Tasse à mesurer, Passoire, Tamis, Rouleau, Mixeur"
-  },
-  {
-    "name": "Outils de service",
-    "description": "Louche, Fourchette à pâtes, Roulette à pizza, Tire-bouchon, Décapsuleur"
-  },
-  {
-    "name": "Ustensiles de pâtisserie",
-    "description": "Corne, Coupe-pâte, Douille (pâtisserie), Emporte-pièce (pâtisserie), Maryse, Moule à gaufres, Moule à manqué"
-  },
-  {
-    "name": "Ustensiles divers",
-    "description": "Balance de cuisine, Casse-noix, Chinois, Cuillère (en bois, en buis ou en métal, à dessert), Cuillère à café, Cuillère à glace, Cuillère à soupe, Décapsuleur, Écumoire"
+    "name": "Autre",
+    "description": "Autre outils"
   }
 ]

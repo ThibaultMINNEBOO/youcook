@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Constitute;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
+use App\Repository\RecipesCategoryRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +24,7 @@ class RecipeController extends AbstractController
 
     #[Route('/recipe/create', name: 'app_recipe_create', requirements: ['id' => '\d+'])]
     #[IsGranted('IS_AUTHENTICATED')]
-    public function create(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    public function create(Request $request, RecipesCategoryRepository $recipesCategoryRepository, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         // $user = $userRepository->findBy(['email' => $this->getUser()->getUserIdentifier()]);
         $recipe = new Recipe();
@@ -78,6 +79,6 @@ class RecipeController extends AbstractController
             // return $this->redirectToRoute("");
         }*/
 
-        return $this->render('recipe/create.html.twig', ['form' => $form->createView()]);
+        return $this->render('recipe/create.html.twig', ['form' => $form->createView(), 'categories' => $recipesCategoryRepository->findAll()]);
     }
 }

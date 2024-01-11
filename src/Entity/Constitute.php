@@ -17,7 +17,7 @@ class Constitute
     private ?int $id = null;
 
     #[ORM\Column(type: Types::FLOAT, precision: 6, scale: 2)]
-    private ?string $quantity = null;
+    private ?float $quantity = null;
 
     #[ORM\Column(length: 4)]
     private ?string $measure = null;

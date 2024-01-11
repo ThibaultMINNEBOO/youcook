@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Constitute;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Repository\RecipesCategoryRepository;
@@ -13,14 +12,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Repository\RecipeRepository;
 
 class RecipeController extends AbstractController
 {
     #[Route('/recipe', name: 'app_recipe')]
-    public function index(RecipesCategoryRepository $recipesCategoryRepository): Response
+    public function index(RecipesCategoryRepository $recipesCategoryRepository, RecipeRepository $recipeRepository): Response
     {
         return $this->render('recipe/index.html.twig', [
             'categories' => $recipesCategoryRepository,
+            'recipes' => $recipeRepository->findAll(),
         ]);
     }
 

@@ -23,6 +23,8 @@ class Ingredient
 
     #[ORM\ManyToOne(inversedBy: 'ingredients')]
     private ?IngredientCategory $category = null;
+
+    #[ORM\ManyToOne(inversedBy: 'ingredients')]
     private ?Allergen $allergen = null;
 
     #[ORM\OneToMany(mappedBy: 'ingredient', targetEntity: Constitute::class)]
@@ -32,7 +34,6 @@ class Ingredient
     {
         $this->constitutes = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -116,5 +117,4 @@ class Ingredient
 
         return $this;
     }
-
 }

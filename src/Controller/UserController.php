@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\ProfileType;
 use App\Repository\RecipesCategoryRepository;
 use App\Repository\UserRepository;
@@ -33,5 +34,21 @@ class UserController extends AbstractController
             'categories' => $recipesCategoryRepository->findAll(),
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/user', name: 'app_user')]
+    public function listUser(UserRepository $userRepository): Response
+    {
+        $users = $userRepository->findAll();
+
+        return $this->render('user/index.html.twig', [
+            'users' => $users,
+        ]);
+    }
+
+    #[Route('/user/{id}', name: 'app_user_show_recipe')]
+    public function show(User $user): Response
+    {
+        return $this->render('user/show.html.twig', ['user' => $user]);
     }
 }

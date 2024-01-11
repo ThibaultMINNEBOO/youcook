@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ tool.name }}{% endblock %}
+
+{% block body %}
+    <h1>Nom de l’outil : {{ tool.name }}</h1>
+    <h3>Catégorie de l’outil : {{ tool.toolCategory.name }}</h3>
+    <h5>Description de la catégorie : {{ tool.toolCategory.description }}</h5>
+{% endblock %}

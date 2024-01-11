@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 style="text-align: center;">{{ recipe.name }}</h1>
+    <div style="text-align: center; margin: 30px;" class="d-flex flex-row">
+        <div style="margin: 10px">
+            <img src="{{ asset('img/recipe_test.jpg') }}" alt="image de la recette" height="500px" style="max-width: 700px; margin-bottom: 5px">
+            <div style="margin: 10px">
+                <h4>Étapes à suivre :</h4>
+                <ol style="text-align: left">
+                    {% for step in recipe.steps %}
+                        <li>{{ step.name }}</li>
+                        <p style="text-indent: 40px;">{{ step.description }}</p>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+        <div style="margin: 10px">
+            <div>
+                <h4 style="text-align: left">Informations sur la recette :</h4>
+                <div class="d-flex">
+                    <p class="card" style="margin: 10px">Auteur : <a href="{{ path('app_user_show_recipe', {'id': recipe.user.id}) }}">{{ recipe.user.firstname }} {{ recipe.user.lastname }}</a></p>
+                    <p class="card" style="margin: 10px">{{ recipe.day == 0 ? recipe.hour == 0 ? "#{recipe.minute} minute(s)" : "#{recipe.hour} heure(s) et  #{recipe.minute}" : "#{recipe.day} jour(s), #{recipe.hour} heure(s) et  #{recipe.minute}" }}</p>
+                    <p class="card" style="margin: 10px">Note : {{ recipe.mark.mark ?? '0.0' }}</p>
+                    <p class="card" style="margin: 10px">Catégorie : {{ recipe.recipeCategory.name }}</p>
+                    <p class="card" style="margin: 10px">Difficulté : {{ recipe.difficulty }}</p>
+                </div>
+            </div>
+            <div class="descriptionRecipe">
+                <h4 style="text-align: left">Description :</h4>
+                <p style="text-align: left; text-indent: 40px">{{ recipe.description ?? 'Aucune description' }}</p>
+            </div>
+            <div class="Ustensiles">
+                <h4 style="text-align: left">Ustensiles utilisés :</h4>
+                <div class="container d-flex flex-wrap">
+                    {% if recipe.tools is empty %}
+                        <p style="text-align: left; text-indent: 40px">Aucun outil utilisé</p>
+                    {% endif %}
+                    {% for tool in recipe.tools %}
+                        <div class="col-md-4" style="min-width: fit-content; max-width: fit-content">
+                            <div class="card d-flex flex-row justify-content-left" style="margin: 10px; align-items: flex-end">
+                                <img class="card-img-top" src="{{ asset('img/tool_icon.png') }}" alt="{{ recipe.name }}" style="height: 40px; width: 40px; margin: 5px">
+                                <p>{{ tool.name }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                <h4 style="text-align: left">Ingrédients :</h4>
+                <div class="container d-flex flex-wrap">
+                    {% for constitute in recipe.constitutes %}
+                        <div class="col-md-4" style="min-width: fit-content; max-width: fit-content">
+                            <div class="card d-flex flex-row justify-content-left align-items-center" style="margin: 10px; align-items: flex-end">
+                                <span class="material-symbols-outlined " style="height: 40px; width: 40px; margin: 5px">grocery</span>
+                                <p>{{ constitute.ingredient.name }} {{ constitute.quantity }}{{ constitute.measure }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}{{ recipe.name }}{% endblock %}
+

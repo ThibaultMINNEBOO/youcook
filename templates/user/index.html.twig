@@ -24,4 +24,10 @@
         {{ form_end(form) }}
     </div>
 
+    <h1>Liste des Users</h1>
+    <ul>
+        {% for user in users %}
+            <li><a href="{{ path('app_user_show_recipe', {'id': user.id}) }}">{{ user.firstname }}, {{ user.lastname }}</a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}

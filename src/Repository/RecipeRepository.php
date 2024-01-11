@@ -20,6 +20,7 @@ class RecipeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Recipe::class);
     }
+
     public function findWithCategory(int $id): ?array
     {
         $qb = $this->createQueryBuilder('r')
@@ -32,5 +33,4 @@ class RecipeRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
-
 }

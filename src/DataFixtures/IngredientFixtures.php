@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Factory\IngredientFactory;
 use App\Factory\RecipeFactory;
+use App\Factory\RecipesCategoryFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -16,7 +17,7 @@ class IngredientFixtures extends Fixture implements DependentFixtureInterface
 
         foreach ($ingredients as $ingredient) {
             IngredientFactory::createOne(['name' => $ingredient['name']]);
-            RecipeFactory::createOne(['recipeCategory' => 1]);
+            RecipeFactory::createOne(['recipeCategory' => RecipesCategoryFactory::new()]);
         }
     }
 

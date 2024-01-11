@@ -1,16 +1,40 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        .fit{
+            white-space: nowrap;
+            margin: 10px;
+            padding: 5px;
+        }
+        .image-container {
+            position: relative;
+        }
 
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .image-container:before {
+            display: block;
+        }
+    </style>
+{% endblock %}
 {% block body %}
     <h1 style="text-align: center;">{{ recipe.name }}</h1>
+    <div class="d-flex justify-content-between" style="margin: 30px;">
+        <p class="fit">Note : {{ recipe.mark.mark ?? '0.0' }}/5</p>
+        <p class="fit">Auteur : <a href="{{ path('app_user_show_recipe', {'id': recipe.user.id}) }}">{{ recipe.user.firstname }} {{ recipe.user.lastname }}</a></p>
+    </div>
     <div style="text-align: center; margin: 30px;" class="d-flex flex-row">
-        <div style="margin: 10px">
-            <img src="{{ asset('img/recipe-default.png') }}" alt="image de la recette" height="500px" style="max-width: 100%; max-height: 50%; margin-bottom: 5px">
+        <div class="image-container" style="margin: 10px">
+            <img src="{{ asset('img/recipe-default.png') }}" alt="image de la recette" height="500px" style="max-width: 1000px; margin-bottom: 5px">
             <div style="margin: 10px">
                 <h4>Étapes à suivre :</h4>
                 <ol style="text-align: left">
                     {% for step in recipe.steps %}
-                        <li>{{ step.name }}</li>
-                        <p style="text-indent: 40px;">{{ step.description }}</p>
+                        <li style="">{{ step.name }}</li>
+                        <p style="text-indent: 40px; opacity: 0.7">{{ step.description }}</p>
                     {% endfor %}
                 </ol>
             </div>
@@ -18,12 +42,11 @@
         <div style="margin: 10px">
             <div>
                 <h4 style="text-align: left">Informations sur la recette :</h4>
-                <div class="d-flex">
-                    <p class="card" style="margin: 10px">Auteur : <a href="{{ path('app_user_show_recipe', {'id': recipe.user.id}) }}">{{ recipe.user.firstname }} {{ recipe.user.lastname }}</a></p>
-                    <p class="card" style="margin: 10px">{{ recipe.day == 0 ? recipe.hour == 0 ? "#{recipe.minute} minute(s)" : "#{recipe.hour} heure(s) et  #{recipe.minute} minute(s)" : "#{recipe.day} jour(s), #{recipe.hour} heure(s) et  #{recipe.minute}" }}</p>
-                    <p class="card" style="margin: 10px">Note : {{ recipe.mark.mark ?? '0.0' }}</p>
-                    <p class="card" style="margin: 10px">Catégorie : {{ recipe.recipeCategory.name }}</p>
-                    <p class="card" style="margin: 10px">Difficulté : {{ recipe.difficulty }}</p>
+                <div class="d-flex fit">
+                    <p class="card fit"><a href="{{ path('app_recipe_category_show', {'id': recipe.recipeCategory.id}) }}">Catégorie : {{ recipe.recipeCategory.name }}</a></p>
+                    <p class="card fit">Difficulté : {{ recipe.difficulty }}</p>
+                    <p class="card fit">{{ recipe.day == 0 ? recipe.hour == 0 ? "#{recipe.minute} minute(s)" : "#{recipe.hour} heure(s) et  #{recipe.minute} minute(s)" : "#{recipe.day} jour(s), #{recipe.hour} heure(s) et  #{recipe.minute} minute(s)" }}</p>
+
                 </div>
             </div>
             <div class="descriptionRecipe">

@@ -60,10 +60,12 @@ class Recipe
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private \DateTimeImmutable $updatedAt;
 
-    #[ORM\OneToOne(mappedBy: 'recipe', cascade: ['persist', 'remove'])]
-    private ?Constitute $constitute = null;
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Constitute::class, cascade: ['persist'])]
     private Collection $constitutes;
+
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -281,6 +283,7 @@ class Recipe
     {
         return $this->updatedAt;
     }
+
     /**
      * @return Collection<int, Constitute>
      */
@@ -307,6 +310,18 @@ class Recipe
                 $constitute->setRecipe(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

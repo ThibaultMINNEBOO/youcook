@@ -35,7 +35,6 @@ class Ingredient
         $this->constitutes = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -118,5 +117,4 @@ class Ingredient
 
         return $this;
     }
-
 }

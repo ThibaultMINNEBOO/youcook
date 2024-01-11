@@ -48,16 +48,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToMany(targetEntity: Allergen::class, inversedBy: 'users')]
     private Collection $allergens;
-    #[ORM\Column(type: 'datetime')]
-    private \DateTime $updatedAt;
 
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?UserAvatar $picture = null;
 
+    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    private \DateTimeImmutable $updatedAt;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Recipe::class)]
+    private Collection $recipes;
+
     public function __construct()
     {
         $this->allergens = new ArrayCollection();
-        $this->updatedAt = new \DateTime();
+        $this->recipes = new ArrayCollection();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -208,7 +213,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setUpdatedAt(\DateTime $updatedAt): User
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipe $recipe): static
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes->add($recipe);
+            $recipe->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): static
+    {
+        if ($this->recipes->removeElement($recipe)) {
+            // set the owning side to null (unless already changed)
+            if ($recipe->getUser() === $this) {
+                $recipe->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): User
     {
         $this->updatedAt = $updatedAt;
 

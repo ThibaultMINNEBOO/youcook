@@ -62,10 +62,13 @@ final class RecipeFactory extends ModelFactory
             'difficulty' => Difficulty::cases()[array_rand(Difficulty::cases())]->value,
             'nbPeople' => self::faker()->numberBetween(1, 10),
             'mark' => MarkFactory::random(),
-            'recipeCategory' => RecipesCategoryFactory::new(),
+            'steps' => StepFactory::createMany(5),
+            'tools' => ToolFactory::createMany(10),
+            'recipeCategory' => RecipesCategoryFactory::random(),
             'day' => self::faker()->numberBetween(0, 30),
             'hour' => self::faker()->numberBetween(0, 23),
             'minute' => self::faker()->numberBetween(1, 59),
+            'user' => UserFactory::random(),
         ];
     }
 

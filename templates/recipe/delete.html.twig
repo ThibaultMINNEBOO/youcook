@@ -3,22 +3,24 @@
 {% block title %}Supprimer la recette{% endblock %}
 {% block stylesheets %}
     <style>
-        .navbar{
-            position: relative;
-        }
+
         .deleteForm{
             display:flex;
             align-items: center;
             flex-direction: column;
-            margin-top: 15%;
+            margin-top: 10%;
         }
+        .navbar{
+             position: relative;
+         }
     </style>
 {% endblock %}
 
 {% block body %}
 
-    <h1 style="text-align: center">Supprimer la recette</h1>
+    <h1>.</h1>
     <div class="deleteForm">
+        <h1 style="text-align: center; margin-bottom: 3%">Suppression de la recette {{ recipe.name }}</h1>
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}

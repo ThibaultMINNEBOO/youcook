@@ -17,6 +17,14 @@
         .navbar{
             position: relative;
         }
+        .tool-list {
+            margin: 10px;
+            border: 1px solid black;
+            padding: 10px;
+            background-color: white;
+            max-height: 200px;
+            overflow: auto;
+        }
     </style>
 {% endblock %}
 
@@ -44,7 +52,9 @@
         {{ form_row(form.steps) }}
         <span id="stepspan"></span>
     </div>
-    {{ form_row(form.tools) }}
+    <div class="tool-list">
+        {{ form_row(form.tools) }}
+    </div>
     {{ form_row(form.picture) }}
     {{ form_row(form.description) }}
 

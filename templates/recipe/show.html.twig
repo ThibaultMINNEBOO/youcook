@@ -4,7 +4,7 @@
     <h1 style="text-align: center;">{{ recipe.name }}</h1>
     <div style="text-align: center; margin: 30px;" class="d-flex flex-row">
         <div style="margin: 10px">
-            <img src="{{ asset('img/recipe_test.jpg') }}" alt="image de la recette" height="500px" style="max-width: 700px; margin-bottom: 5px">
+            <img src="{{ asset('img/recipe-default.png') }}" alt="image de la recette" height="500px" style="max-width: 100%; max-height: 50%; margin-bottom: 5px">
             <div style="margin: 10px">
                 <h4>Étapes à suivre :</h4>
                 <ol style="text-align: left">
@@ -20,7 +20,7 @@
                 <h4 style="text-align: left">Informations sur la recette :</h4>
                 <div class="d-flex">
                     <p class="card" style="margin: 10px">Auteur : <a href="{{ path('app_user_show_recipe', {'id': recipe.user.id}) }}">{{ recipe.user.firstname }} {{ recipe.user.lastname }}</a></p>
-                    <p class="card" style="margin: 10px">{{ recipe.day == 0 ? recipe.hour == 0 ? "#{recipe.minute} minute(s)" : "#{recipe.hour} heure(s) et  #{recipe.minute}" : "#{recipe.day} jour(s), #{recipe.hour} heure(s) et  #{recipe.minute}" }}</p>
+                    <p class="card" style="margin: 10px">{{ recipe.day == 0 ? recipe.hour == 0 ? "#{recipe.minute} minute(s)" : "#{recipe.hour} heure(s) et  #{recipe.minute} minute(s)" : "#{recipe.day} jour(s), #{recipe.hour} heure(s) et  #{recipe.minute}" }}</p>
                     <p class="card" style="margin: 10px">Note : {{ recipe.mark.mark ?? '0.0' }}</p>
                     <p class="card" style="margin: 10px">Catégorie : {{ recipe.recipeCategory.name }}</p>
                     <p class="card" style="margin: 10px">Difficulté : {{ recipe.difficulty }}</p>

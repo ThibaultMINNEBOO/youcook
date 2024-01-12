@@ -38,12 +38,12 @@ class UserController extends AbstractController
     }
 
     #[Route('/user', name: 'app_user')]
-    public function listUser(UserRepository $userRepository, RecipesCategoryRepository $recipesCategoryRepository): Response
+    public function listUser(UserRepository $userRepository, RecipesCategoryRepository $recipesCategoryRepository, Request $request): Response
     {
-        $users = $userRepository->findAll();
+        $search = $request->query->get('search', '');
 
         return $this->render('user/listUser.html.twig', [
-            'users' => $users,
+            'users' => $userRepository->searchUser($search),
             'categories' => $recipesCategoryRepository->findAll(),
         ]);
     }

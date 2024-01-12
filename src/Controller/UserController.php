@@ -31,25 +31,29 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/index.html.twig', [
-            'categories' => $recipesCategoryRepository->findAll(),
             'form' => $form->createView(),
+            'users' => $userRepository->findAll(),
             'categories' => $recipesCategoryRepository->findAll(),
         ]);
     }
 
     #[Route('/user', name: 'app_user')]
-    public function listUser(UserRepository $userRepository): Response
+    public function listUser(UserRepository $userRepository, RecipesCategoryRepository $recipesCategoryRepository): Response
     {
         $users = $userRepository->findAll();
 
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/listUser.html.twig', [
             'users' => $users,
+            'categories' => $recipesCategoryRepository->findAll(),
         ]);
     }
 
     #[Route('/user/{id}', name: 'app_user_show_recipe')]
-    public function show(User $user): Response
+    public function show(User $user, RecipesCategoryRepository $recipesCategoryRepository): Response
     {
-        return $this->render('user/show.html.twig', ['user' => $user]);
+        return $this->render('user/show.html.twig', [
+            'user' => $user,
+            'categories' => $recipesCategoryRepository->findAll(),
+        ]);
     }
 }

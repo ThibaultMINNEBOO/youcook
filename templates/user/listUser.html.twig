@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.firstname }} | Profile{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+    <h1>Liste des Users</h1>
+    <ul>
+        {% for user in users %}
+            <li><a href="{{ path('app_user_show_recipe', {'id': user.id}) }}">{{ user.firstname }}, {{ user.lastname }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

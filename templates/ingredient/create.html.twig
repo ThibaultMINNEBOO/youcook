@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Création d'un nouvel ingrédient
+{% endblock %}
+
+{% block body%}
+    <body class="container-lg">
+    <h1>Création d'un nouvel ingrédient</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.picture) }}
+    {{ form_row(form.category) }}
+    {{ form_row(form.allergen) }}
+
+    <button type="submit" class="w-100 d-inline-block btn btn-primary">Ajouter</button>
+    {{ form_end(form) }}
+    </body>
+{% endblock %}
